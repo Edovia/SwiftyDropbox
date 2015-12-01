@@ -74,7 +74,7 @@ public enum DropboxAuthResult {
     case Error(OAuth2Error, String)
 }
 
-class Keychain {
+class DBKeychain {
     
     class func queryWithDict(query: [String : AnyObject]) -> CFDictionaryRef
     {
@@ -96,7 +96,7 @@ class Keychain {
     }
     
     class func set(key: String, value: NSData) -> Bool {
-        let query = Keychain.queryWithDict([
+        let query = DBKeychain.queryWithDict([
             (kSecAttrAccount as String): key,
             (  kSecValueData as String): value
         ])
@@ -107,7 +107,7 @@ class Keychain {
     }
     
     class func getAsData(key: String) -> NSData? {
-        let query = Keychain.queryWithDict([
+        let query = DBKeychain.queryWithDict([
             (kSecAttrAccount as String): key,
             ( kSecReturnData as String): kCFBooleanTrue,
             ( kSecMatchLimit as String): kSecMatchLimitOne
@@ -146,7 +146,7 @@ class Keychain {
     }
     
     class func getAll() -> [String] {
-        let query = Keychain.queryWithDict([
+        let query = DBKeychain.queryWithDict([
             ( kSecReturnAttributes as String): kCFBooleanTrue,
             (       kSecMatchLimit as String): kSecMatchLimitAll
         ])
@@ -175,7 +175,7 @@ class Keychain {
     }
     
     class func delete(key: String) -> Bool {
-        let query = Keychain.queryWithDict([
+        let query = DBKeychain.queryWithDict([
             (kSecAttrAccount as String): key
         ])
         
@@ -183,7 +183,7 @@ class Keychain {
     }
     
     class func clear() -> Bool {
-        let query = Keychain.queryWithDict([:])
+        let query = DBKeychain.queryWithDict([:])
         return SecItemDelete(query) == noErr
     }
 }
@@ -352,7 +352,7 @@ public class DropboxAuthManager {
         
         switch result {
         case .Success(let token):
-            Keychain.set(token.uid, value: token.accessToken)
+            DBKeychain.set(token.uid, value: token.accessToken)
             return result
         default:
             return result
@@ -365,10 +365,10 @@ public class DropboxAuthManager {
         - returns: a dictionary mapping users to their access tokens
     */
     public func getAllAccessTokens() -> [String : DropboxAccessToken] {
-        let users = Keychain.getAll()
+        let users = DBKeychain.getAll()
         var ret = [String : DropboxAccessToken]()
         for user in users {
-            if let accessToken = Keychain.get(user) {
+            if let accessToken = DBKeychain.get(user) {
                 ret[user] = DropboxAccessToken(accessToken: accessToken, uid: user)
             }
         }
@@ -392,7 +392,7 @@ public class DropboxAuthManager {
         - returns: An access token if present, otherwise `nil`.
     */
     public func getAccessToken(user: String) -> DropboxAccessToken? {
-        if let accessToken = Keychain.get(user) {
+        if let accessToken = DBKeychain.get(user) {
             return DropboxAccessToken(accessToken: accessToken, uid: user)
         } else {
             return nil
@@ -406,7 +406,7 @@ public class DropboxAuthManager {
         - returns: whether the operation succeeded
     */
     public func clearStoredAccessToken(token: DropboxAccessToken) -> Bool {
-        return Keychain.delete(token.uid)
+        return DBKeychain.delete(token.uid)
     }
     /**
         Delete all stored access tokens
@@ -414,7 +414,7 @@ public class DropboxAuthManager {
         - returns: whether the operation succeeded
     */
     public func clearStoredAccessTokens() -> Bool {
-        return Keychain.clear()
+        return DBKeychain.clear()
     }
     /**
         Save an access token
@@ -424,7 +424,7 @@ public class DropboxAuthManager {
         - returns: whether the operation succeeded
     */
     public func storeAccessToken(token: DropboxAccessToken) -> Bool {
-        return Keychain.set(token.uid, value: token.accessToken)
+        return DBKeychain.set(token.uid, value: token.accessToken)
     }
 
     /**
