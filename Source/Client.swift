@@ -65,12 +65,12 @@ public enum CallError<EType> : CustomStringConvertible {
                 ret += ": \(m)"
             }
             return ret
-        case let .RouteError(_, requestId):
+        case let .RouteError(box, requestId):
             var ret = ""
             if let r = requestId {
                 ret += "[request-id \(r)] "
             }
-            ret += "API route error - handle programmatically"
+            ret += "API route error - \(box.unboxed)"
             return ret
         case let .OSError(err):
             if let e = err {
@@ -174,7 +174,7 @@ public class BabelRpcRequest<RType : JSONSerializer, EType : JSONSerializer> : B
             headers[header] = val
         }
         
-        let request = client.manager.request(.POST, url, parameters: [:], headers: headers, encoding: ParameterEncoding.Custom {(convertible, _) in
+        let request = client.manager.request(.POST, url, parameters: ["": ""], headers: headers, encoding: ParameterEncoding.Custom {(convertible, _) in
                 let mutableRequest = convertible.URLRequest.copy() as! NSMutableURLRequest
                 mutableRequest.HTTPBody = dumpJSON(params)
                 return (mutableRequest, nil)
