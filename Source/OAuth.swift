@@ -1,4 +1,9 @@
-import UIKit
+#if os(iOS)
+    import UIKit
+#else
+    import AppKit
+#endif
+
 import WebKit
 
 import Security
@@ -293,6 +298,7 @@ public class DropboxAuthManager {
     /// Present the OAuth2 authorization request page by presenting a web view controller modally
     ///
     /// parameter controller: The controller to present from
+#if os(iOS)
     public func authorizeFromController(controller: UIViewController) {
         if !self.conformsToAppScheme() {
             let message = "DropboxSDK: unable to link; app isn't registered for correct URL scheme (db-\(self.appKey))"
@@ -335,6 +341,9 @@ public class DropboxAuthManager {
             controller.presentViewController(navigationController, animated: true, completion: nil)
         }
     }
+#else
+    // TODO Screens Mac
+#endif
     
     private func extractfromDAuthURL(url: NSURL) -> DropboxAuthResult {
         switch url.path ?? "" {
@@ -488,6 +497,7 @@ public class DropboxAuthManager {
 }
 
 
+#if os(iOS)
 public class DropboxConnectController : UIViewController, WKNavigationDelegate {
     var webView : WKWebView!
     
@@ -585,3 +595,5 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
     }
     
 }
+
+#endif
