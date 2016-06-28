@@ -4,12 +4,12 @@ import Foundation
 
 var _assertFunc: (Bool,String) -> Void = { cond, message in precondition(cond, message) }
 
-public func setAssertFunc( assertFunc: (Bool, String) -> Void) {
+public func setAssertFunc( _ assertFunc: (Bool, String) -> Void) {
     _assertFunc = assertFunc
 }
 
 
-public func arrayValidator<T>(minItems minItems : Int? = nil, maxItems : Int? = nil, itemValidator: T -> Void)(value : Array<T>) -> Void {
+public func arrayValidator<T>(minItems : Int? = nil, maxItems : Int? = nil, itemValidator: (T) -> Void, _ value : Array<T>) -> Void {
     if let min = minItems {
         _assertFunc(value.count >= min, "\(value) must have at least \(min) items")
     }
@@ -24,24 +24,26 @@ public func arrayValidator<T>(minItems minItems : Int? = nil, maxItems : Int? = 
     
 }
 
-public func stringValidator(minLength minLength : Int? = nil, maxLength : Int? = nil, pattern: String? = nil)(value: String) -> Void {
-    let length = value.characters.count
-    if let min = minLength {
-        _assertFunc(length >= min, "\"\(value)\" must be at least \(min) characters")
-    }
-    if let max = maxLength {
-        _assertFunc(length <= max, "\"\(value)\" must be at most \(max) characters")
-    }
-    
-    if let pat = pattern {
-        // patterns much match entire input sequence
-        let re = try! NSRegularExpression(pattern: "\\A(?:\(pat))\\z", options: NSRegularExpressionOptions())
-        let matches = re.matchesInString(value, options: NSMatchingOptions(), range: NSMakeRange(0, length))
-        _assertFunc(matches.count > 0, "\"\(value) must match pattern \"\(re.pattern)\"")
+public func stringValidator(minLength : Int? = nil, maxLength : Int? = nil, pattern: String? = nil) -> (String) -> Void {
+    return {(value: String) -> Void in
+        let length = value.characters.count
+        if let min = minLength {
+            _assertFunc(length >= min, "\"\(value)\" must be at least \(min) characters")
+        }
+        if let max = maxLength {
+            _assertFunc(length <= max, "\"\(value)\" must be at most \(max) characters")
+        }
+        
+        if let pat = pattern {
+            // patterns much match entire input sequence
+            let re = try! RegularExpression(pattern: "\\A(?:\(pat))\\z", options: RegularExpression.Options())
+            let matches = re.matches(in: value, options: RegularExpression.MatchingOptions(), range: NSMakeRange(0, length))
+            _assertFunc(matches.count > 0, "\"\(value) must match pattern \"\(re.pattern)\"")
+        }
     }
 }
 
-public func comparableValidator<T: Comparable>(minValue minValue : T? = nil, maxValue : T? = nil)(value: T) -> Void {
+public func comparableValidator<T: Comparable>(minValue : T? = nil, maxValue : T? = nil, _ value: T) -> Void {
     if let min = minValue {
         _assertFunc(min <= value, "\(value) must be at least \(min)")
     }
@@ -51,14 +53,14 @@ public func comparableValidator<T: Comparable>(minValue minValue : T? = nil, max
     }
 }
 
-public func nullableValidator<T>(internalValidator : (T) -> Void)(value : T?) -> Void {
+public func nullableValidator<T>(_ internalValidator : (T) -> Void, _ value : T?) -> Void {
     if let v = value {
         internalValidator(v)
     }
 }
 
-public func binaryValidator(minLength minLength : Int?, maxLength: Int?)(value: NSData) -> Void {
-    let length = value.length
+public func binaryValidator(minLength : Int?, maxLength: Int?, _ value: Data) -> Void {
+    let length = value.count
     if let min = minLength {
         _assertFunc(length >= min, "\"\(value)\" must be at least \(min) bytes")
     }

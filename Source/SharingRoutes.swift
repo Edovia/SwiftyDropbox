@@ -19,7 +19,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Void` object on success or a
         `Sharing.AddFolderMemberError` object on failure.
     */
-    public func addFolderMember(sharedFolderId sharedFolderId: String, members: Array<Sharing.AddMember>, quiet: Bool = false, customMessage: String? = nil) -> BabelRpcRequest<VoidSerializer, Sharing.AddFolderMemberErrorSerializer> {
+    public func addFolderMember(sharedFolderId: String, members: Array<Sharing.AddMember>, quiet: Bool = false, customMessage: String? = nil) -> BabelRpcRequest<VoidSerializer, Sharing.AddFolderMemberErrorSerializer> {
         let request = Sharing.AddFolderMemberArg(sharedFolderId: sharedFolderId, members: members, quiet: quiet, customMessage: customMessage)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/add_folder_member", params: Sharing.AddFolderMemberArgSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Sharing.AddFolderMemberErrorSerializer())
     }
@@ -33,7 +33,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.JobStatus` object on success or a
         `Async.PollError` object on failure.
     */
-    public func checkJobStatus(asyncJobId asyncJobId: String) -> BabelRpcRequest<Sharing.JobStatusSerializer, Async.PollErrorSerializer> {
+    public func checkJobStatus(asyncJobId: String) -> BabelRpcRequest<Sharing.JobStatusSerializer, Async.PollErrorSerializer> {
         let request = Async.PollArg(asyncJobId: asyncJobId)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/check_job_status", params: Async.PollArgSerializer().serialize(request), responseSerializer: Sharing.JobStatusSerializer(), errorSerializer: Async.PollErrorSerializer())
     }
@@ -47,7 +47,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.ShareFolderJobStatus` object on
         success or a `Async.PollError` object on failure.
     */
-    public func checkShareJobStatus(asyncJobId asyncJobId: String) -> BabelRpcRequest<Sharing.ShareFolderJobStatusSerializer, Async.PollErrorSerializer> {
+    public func checkShareJobStatus(asyncJobId: String) -> BabelRpcRequest<Sharing.ShareFolderJobStatusSerializer, Async.PollErrorSerializer> {
         let request = Async.PollArg(asyncJobId: asyncJobId)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/check_share_job_status", params: Async.PollArgSerializer().serialize(request), responseSerializer: Sharing.ShareFolderJobStatusSerializer(), errorSerializer: Async.PollErrorSerializer())
     }
@@ -66,7 +66,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.PathLinkMetadata` object on
         success or a `Sharing.CreateSharedLinkError` object on failure.
     */
-    public func createSharedLink(path path: String, shortUrl: Bool = false, pendingUpload: Sharing.PendingUploadMode? = nil) -> BabelRpcRequest<Sharing.PathLinkMetadataSerializer, Sharing.CreateSharedLinkErrorSerializer> {
+    public func createSharedLink(path: String, shortUrl: Bool = false, pendingUpload: Sharing.PendingUploadMode? = nil) -> BabelRpcRequest<Sharing.PathLinkMetadataSerializer, Sharing.CreateSharedLinkErrorSerializer> {
         let request = Sharing.CreateSharedLinkArg(path: path, shortUrl: shortUrl, pendingUpload: pendingUpload)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/create_shared_link", params: Sharing.CreateSharedLinkArgSerializer().serialize(request), responseSerializer: Sharing.PathLinkMetadataSerializer(), errorSerializer: Sharing.CreateSharedLinkErrorSerializer())
     }
@@ -81,7 +81,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.SharedLinkMetadata` object on
         success or a `Sharing.CreateSharedLinkWithSettingsError` object on failure.
     */
-    public func createSharedLinkWithSettings(path path: String, settings: Sharing.SharedLinkSettings? = nil) -> BabelRpcRequest<Sharing.SharedLinkMetadataSerializer, Sharing.CreateSharedLinkWithSettingsErrorSerializer> {
+    public func createSharedLinkWithSettings(path: String, settings: Sharing.SharedLinkSettings? = nil) -> BabelRpcRequest<Sharing.SharedLinkMetadataSerializer, Sharing.CreateSharedLinkWithSettingsErrorSerializer> {
         let request = Sharing.CreateSharedLinkWithSettingsArg(path: path, settings: settings)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/create_shared_link_with_settings", params: Sharing.CreateSharedLinkWithSettingsArgSerializer().serialize(request), responseSerializer: Sharing.SharedLinkMetadataSerializer(), errorSerializer: Sharing.CreateSharedLinkWithSettingsErrorSerializer())
     }
@@ -95,7 +95,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.SharedFolderMetadata` object on
         success or a `Sharing.SharedFolderAccessError` object on failure.
     */
-    public func getFolderMetadata(sharedFolderId sharedFolderId: String, actions: Array<Sharing.FolderAction>? = nil) -> BabelRpcRequest<Sharing.SharedFolderMetadataSerializer, Sharing.SharedFolderAccessErrorSerializer> {
+    public func getFolderMetadata(sharedFolderId: String, actions: Array<Sharing.FolderAction>? = nil) -> BabelRpcRequest<Sharing.SharedFolderMetadataSerializer, Sharing.SharedFolderAccessErrorSerializer> {
         let request = Sharing.GetMetadataArgs(sharedFolderId: sharedFolderId, actions: actions)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/get_folder_metadata", params: Sharing.GetMetadataArgsSerializer().serialize(request), responseSerializer: Sharing.SharedFolderMetadataSerializer(), errorSerializer: Sharing.SharedFolderAccessErrorSerializer())
     }
@@ -112,7 +112,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.SharedLinkMetadata` object on
         success or a `Sharing.GetSharedLinkFileError` object on failure.
     */
-    public func getSharedLinkFile(url url: String, path: String? = nil, linkPassword: String? = nil, destination: (NSURL, NSHTTPURLResponse) -> NSURL) -> BabelDownloadRequest<Sharing.SharedLinkMetadataSerializer, Sharing.GetSharedLinkFileErrorSerializer> {
+    public func getSharedLinkFile(url: String, path: String? = nil, linkPassword: String? = nil, destination: (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Sharing.SharedLinkMetadataSerializer, Sharing.GetSharedLinkFileErrorSerializer> {
         let request = Sharing.GetSharedLinkMetadataArg(url: url, path: path, linkPassword: linkPassword)
         return BabelDownloadRequest(client: self.client, host: "content", route: "/sharing/get_shared_link_file", params: Sharing.GetSharedLinkMetadataArgSerializer().serialize(request), responseSerializer: Sharing.SharedLinkMetadataSerializer(), errorSerializer: Sharing.GetSharedLinkFileErrorSerializer(), destination: destination)
     }
@@ -127,7 +127,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.SharedLinkMetadata` object on
         success or a `Sharing.SharedLinkError` object on failure.
     */
-    public func getSharedLinkMetadata(url url: String, path: String? = nil, linkPassword: String? = nil) -> BabelRpcRequest<Sharing.SharedLinkMetadataSerializer, Sharing.SharedLinkErrorSerializer> {
+    public func getSharedLinkMetadata(url: String, path: String? = nil, linkPassword: String? = nil) -> BabelRpcRequest<Sharing.SharedLinkMetadataSerializer, Sharing.SharedLinkErrorSerializer> {
         let request = Sharing.GetSharedLinkMetadataArg(url: url, path: path, linkPassword: linkPassword)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/get_shared_link_metadata", params: Sharing.GetSharedLinkMetadataArgSerializer().serialize(request), responseSerializer: Sharing.SharedLinkMetadataSerializer(), errorSerializer: Sharing.SharedLinkErrorSerializer())
     }
@@ -142,7 +142,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.GetSharedLinksResult` object on
         success or a `Sharing.GetSharedLinksError` object on failure.
     */
-    public func getSharedLinks(path: String? = nil) -> BabelRpcRequest<Sharing.GetSharedLinksResultSerializer, Sharing.GetSharedLinksErrorSerializer> {
+    public func getSharedLinks(_ path: String? = nil) -> BabelRpcRequest<Sharing.GetSharedLinksResultSerializer, Sharing.GetSharedLinksErrorSerializer> {
         let request = Sharing.GetSharedLinksArg(path: path)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/get_shared_links", params: Sharing.GetSharedLinksArgSerializer().serialize(request), responseSerializer: Sharing.GetSharedLinksResultSerializer(), errorSerializer: Sharing.GetSharedLinksErrorSerializer())
     }
@@ -156,7 +156,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.SharedFolderMembers` object on
         success or a `Sharing.SharedFolderAccessError` object on failure.
     */
-    public func listFolderMembers(sharedFolderId sharedFolderId: String, actions: Array<Sharing.MemberAction>? = nil) -> BabelRpcRequest<Sharing.SharedFolderMembersSerializer, Sharing.SharedFolderAccessErrorSerializer> {
+    public func listFolderMembers(sharedFolderId: String, actions: Array<Sharing.MemberAction>? = nil) -> BabelRpcRequest<Sharing.SharedFolderMembersSerializer, Sharing.SharedFolderAccessErrorSerializer> {
         let request = Sharing.ListFolderMembersArgs(sharedFolderId: sharedFolderId, actions: actions)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/list_folder_members", params: Sharing.ListFolderMembersArgsSerializer().serialize(request), responseSerializer: Sharing.SharedFolderMembersSerializer(), errorSerializer: Sharing.SharedFolderAccessErrorSerializer())
     }
@@ -170,7 +170,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.SharedFolderMembers` object on
         success or a `Sharing.ListFolderMembersContinueError` object on failure.
     */
-    public func listFolderMembersContinue(cursor cursor: String) -> BabelRpcRequest<Sharing.SharedFolderMembersSerializer, Sharing.ListFolderMembersContinueErrorSerializer> {
+    public func listFolderMembersContinue(cursor: String) -> BabelRpcRequest<Sharing.SharedFolderMembersSerializer, Sharing.ListFolderMembersContinueErrorSerializer> {
         let request = Sharing.ListFolderMembersContinueArg(cursor: cursor)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/list_folder_members/continue", params: Sharing.ListFolderMembersContinueArgSerializer().serialize(request), responseSerializer: Sharing.SharedFolderMembersSerializer(), errorSerializer: Sharing.ListFolderMembersContinueErrorSerializer())
     }
@@ -196,7 +196,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.ListFoldersResult` object on
         success or a `Sharing.ListFoldersContinueError` object on failure.
     */
-    public func listFoldersContinue(cursor cursor: String) -> BabelRpcRequest<Sharing.ListFoldersResultSerializer, Sharing.ListFoldersContinueErrorSerializer> {
+    public func listFoldersContinue(cursor: String) -> BabelRpcRequest<Sharing.ListFoldersResultSerializer, Sharing.ListFoldersContinueErrorSerializer> {
         let request = Sharing.ListFoldersContinueArg(cursor: cursor)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/list_folders/continue", params: Sharing.ListFoldersContinueArgSerializer().serialize(request), responseSerializer: Sharing.ListFoldersResultSerializer(), errorSerializer: Sharing.ListFoldersContinueErrorSerializer())
     }
@@ -211,7 +211,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.ListSharedLinksResult` object on
         success or a `Sharing.ListSharedLinksError` object on failure.
     */
-    public func listSharedLinks(path: String? = nil, cursor: String? = nil) -> BabelRpcRequest<Sharing.ListSharedLinksResultSerializer, Sharing.ListSharedLinksErrorSerializer> {
+    public func listSharedLinks(_ path: String? = nil, cursor: String? = nil) -> BabelRpcRequest<Sharing.ListSharedLinksResultSerializer, Sharing.ListSharedLinksErrorSerializer> {
         let request = Sharing.ListSharedLinksArg(path: path, cursor: cursor)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/list_shared_links", params: Sharing.ListSharedLinksArgSerializer().serialize(request), responseSerializer: Sharing.ListSharedLinksResultSerializer(), errorSerializer: Sharing.ListSharedLinksErrorSerializer())
     }
@@ -227,7 +227,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.SharedLinkMetadata` object on
         success or a `Sharing.ModifySharedLinkSettingsError` object on failure.
     */
-    public func modifySharedLinkSettings(url url: String, settings: Sharing.SharedLinkSettings) -> BabelRpcRequest<Sharing.SharedLinkMetadataSerializer, Sharing.ModifySharedLinkSettingsErrorSerializer> {
+    public func modifySharedLinkSettings(url: String, settings: Sharing.SharedLinkSettings) -> BabelRpcRequest<Sharing.SharedLinkMetadataSerializer, Sharing.ModifySharedLinkSettingsErrorSerializer> {
         let request = Sharing.ModifySharedLinkSettingsArgs(url: url, settings: settings)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/modify_shared_link_settings", params: Sharing.ModifySharedLinkSettingsArgsSerializer().serialize(request), responseSerializer: Sharing.SharedLinkMetadataSerializer(), errorSerializer: Sharing.ModifySharedLinkSettingsErrorSerializer())
     }
@@ -242,7 +242,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.SharedFolderMetadata` object on
         success or a `Sharing.MountFolderError` object on failure.
     */
-    public func mountFolder(sharedFolderId sharedFolderId: String) -> BabelRpcRequest<Sharing.SharedFolderMetadataSerializer, Sharing.MountFolderErrorSerializer> {
+    public func mountFolder(sharedFolderId: String) -> BabelRpcRequest<Sharing.SharedFolderMetadataSerializer, Sharing.MountFolderErrorSerializer> {
         let request = Sharing.MountFolderArg(sharedFolderId: sharedFolderId)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/mount_folder", params: Sharing.MountFolderArgSerializer().serialize(request), responseSerializer: Sharing.SharedFolderMetadataSerializer(), errorSerializer: Sharing.MountFolderErrorSerializer())
     }
@@ -257,7 +257,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Void` object on success or a
         `Sharing.RelinquishFolderMembershipError` object on failure.
     */
-    public func relinquishFolderMembership(sharedFolderId sharedFolderId: String) -> BabelRpcRequest<VoidSerializer, Sharing.RelinquishFolderMembershipErrorSerializer> {
+    public func relinquishFolderMembership(sharedFolderId: String) -> BabelRpcRequest<VoidSerializer, Sharing.RelinquishFolderMembershipErrorSerializer> {
         let request = Sharing.RelinquishFolderMembershipArg(sharedFolderId: sharedFolderId)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/relinquish_folder_membership", params: Sharing.RelinquishFolderMembershipArgSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Sharing.RelinquishFolderMembershipErrorSerializer())
     }
@@ -275,7 +275,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Async.LaunchEmptyResult` object on success
         or a `Sharing.RemoveFolderMemberError` object on failure.
     */
-    public func removeFolderMember(sharedFolderId sharedFolderId: String, member: Sharing.MemberSelector, leaveACopy: Bool) -> BabelRpcRequest<Async.LaunchEmptyResultSerializer, Sharing.RemoveFolderMemberErrorSerializer> {
+    public func removeFolderMember(sharedFolderId: String, member: Sharing.MemberSelector, leaveACopy: Bool) -> BabelRpcRequest<Async.LaunchEmptyResultSerializer, Sharing.RemoveFolderMemberErrorSerializer> {
         let request = Sharing.RemoveFolderMemberArg(sharedFolderId: sharedFolderId, member: member, leaveACopy: leaveACopy)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/remove_folder_member", params: Sharing.RemoveFolderMemberArgSerializer().serialize(request), responseSerializer: Async.LaunchEmptyResultSerializer(), errorSerializer: Sharing.RemoveFolderMemberErrorSerializer())
     }
@@ -289,7 +289,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Void` object on success or a
         `Sharing.RevokeSharedLinkError` object on failure.
     */
-    public func revokeSharedLink(url url: String) -> BabelRpcRequest<VoidSerializer, Sharing.RevokeSharedLinkErrorSerializer> {
+    public func revokeSharedLink(url: String) -> BabelRpcRequest<VoidSerializer, Sharing.RevokeSharedLinkErrorSerializer> {
         let request = Sharing.RevokeSharedLinkArg(url: url)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/revoke_shared_link", params: Sharing.RevokeSharedLinkArgSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Sharing.RevokeSharedLinkErrorSerializer())
     }
@@ -309,7 +309,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.ShareFolderLaunch` object on
         success or a `Sharing.ShareFolderError` object on failure.
     */
-    public func shareFolder(path path: String, memberPolicy: Sharing.MemberPolicy = .Anyone, aclUpdatePolicy: Sharing.AclUpdatePolicy = .Owner, sharedLinkPolicy: Sharing.SharedLinkPolicy = .Anyone, forceAsync: Bool = false) -> BabelRpcRequest<Sharing.ShareFolderLaunchSerializer, Sharing.ShareFolderErrorSerializer> {
+    public func shareFolder(path: String, memberPolicy: Sharing.MemberPolicy = .anyone, aclUpdatePolicy: Sharing.AclUpdatePolicy = .owner, sharedLinkPolicy: Sharing.SharedLinkPolicy = .anyone, forceAsync: Bool = false) -> BabelRpcRequest<Sharing.ShareFolderLaunchSerializer, Sharing.ShareFolderErrorSerializer> {
         let request = Sharing.ShareFolderArg(path: path, memberPolicy: memberPolicy, aclUpdatePolicy: aclUpdatePolicy, sharedLinkPolicy: sharedLinkPolicy, forceAsync: forceAsync)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/share_folder", params: Sharing.ShareFolderArgSerializer().serialize(request), responseSerializer: Sharing.ShareFolderLaunchSerializer(), errorSerializer: Sharing.ShareFolderErrorSerializer())
     }
@@ -324,7 +324,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Void` object on success or a
         `Sharing.TransferFolderError` object on failure.
     */
-    public func transferFolder(sharedFolderId sharedFolderId: String, toDropboxId: String) -> BabelRpcRequest<VoidSerializer, Sharing.TransferFolderErrorSerializer> {
+    public func transferFolder(sharedFolderId: String, toDropboxId: String) -> BabelRpcRequest<VoidSerializer, Sharing.TransferFolderErrorSerializer> {
         let request = Sharing.TransferFolderArg(sharedFolderId: sharedFolderId, toDropboxId: toDropboxId)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/transfer_folder", params: Sharing.TransferFolderArgSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Sharing.TransferFolderErrorSerializer())
     }
@@ -338,7 +338,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Void` object on success or a
         `Sharing.UnmountFolderError` object on failure.
     */
-    public func unmountFolder(sharedFolderId sharedFolderId: String) -> BabelRpcRequest<VoidSerializer, Sharing.UnmountFolderErrorSerializer> {
+    public func unmountFolder(sharedFolderId: String) -> BabelRpcRequest<VoidSerializer, Sharing.UnmountFolderErrorSerializer> {
         let request = Sharing.UnmountFolderArg(sharedFolderId: sharedFolderId)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/unmount_folder", params: Sharing.UnmountFolderArgSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Sharing.UnmountFolderErrorSerializer())
     }
@@ -355,7 +355,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Async.LaunchEmptyResult` object on success
         or a `Sharing.UnshareFolderError` object on failure.
     */
-    public func unshareFolder(sharedFolderId sharedFolderId: String, leaveACopy: Bool) -> BabelRpcRequest<Async.LaunchEmptyResultSerializer, Sharing.UnshareFolderErrorSerializer> {
+    public func unshareFolder(sharedFolderId: String, leaveACopy: Bool) -> BabelRpcRequest<Async.LaunchEmptyResultSerializer, Sharing.UnshareFolderErrorSerializer> {
         let request = Sharing.UnshareFolderArg(sharedFolderId: sharedFolderId, leaveACopy: leaveACopy)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/unshare_folder", params: Sharing.UnshareFolderArgSerializer().serialize(request), responseSerializer: Async.LaunchEmptyResultSerializer(), errorSerializer: Sharing.UnshareFolderErrorSerializer())
     }
@@ -372,7 +372,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Void` object on success or a
         `Sharing.UpdateFolderMemberError` object on failure.
     */
-    public func updateFolderMember(sharedFolderId sharedFolderId: String, member: Sharing.MemberSelector, accessLevel: Sharing.AccessLevel) -> BabelRpcRequest<VoidSerializer, Sharing.UpdateFolderMemberErrorSerializer> {
+    public func updateFolderMember(sharedFolderId: String, member: Sharing.MemberSelector, accessLevel: Sharing.AccessLevel) -> BabelRpcRequest<VoidSerializer, Sharing.UpdateFolderMemberErrorSerializer> {
         let request = Sharing.UpdateFolderMemberArg(sharedFolderId: sharedFolderId, member: member, accessLevel: accessLevel)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/update_folder_member", params: Sharing.UpdateFolderMemberArgSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Sharing.UpdateFolderMemberErrorSerializer())
     }
@@ -389,7 +389,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.SharedFolderMetadata` object on
         success or a `Sharing.UpdateFolderPolicyError` object on failure.
     */
-    public func updateFolderPolicy(sharedFolderId sharedFolderId: String, memberPolicy: Sharing.MemberPolicy? = nil, aclUpdatePolicy: Sharing.AclUpdatePolicy? = nil, sharedLinkPolicy: Sharing.SharedLinkPolicy? = nil) -> BabelRpcRequest<Sharing.SharedFolderMetadataSerializer, Sharing.UpdateFolderPolicyErrorSerializer> {
+    public func updateFolderPolicy(sharedFolderId: String, memberPolicy: Sharing.MemberPolicy? = nil, aclUpdatePolicy: Sharing.AclUpdatePolicy? = nil, sharedLinkPolicy: Sharing.SharedLinkPolicy? = nil) -> BabelRpcRequest<Sharing.SharedFolderMetadataSerializer, Sharing.UpdateFolderPolicyErrorSerializer> {
         let request = Sharing.UpdateFolderPolicyArg(sharedFolderId: sharedFolderId, memberPolicy: memberPolicy, aclUpdatePolicy: aclUpdatePolicy, sharedLinkPolicy: sharedLinkPolicy)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/sharing/update_folder_policy", params: Sharing.UpdateFolderPolicyArgSerializer().serialize(request), responseSerializer: Sharing.SharedFolderMetadataSerializer(), errorSerializer: Sharing.UpdateFolderPolicyErrorSerializer())
     }

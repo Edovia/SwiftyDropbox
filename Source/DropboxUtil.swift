@@ -14,23 +14,23 @@ class DropboxServerTrustPolicyManager: ServerTrustPolicyManager {
         super.init(policies: [String : ServerTrustPolicy]())
     }
         
-    override func serverTrustPolicyForHost(host: String) -> ServerTrustPolicy? {
-        let trustPolicy = ServerTrustPolicy.CustomEvaluation {(serverTrust, host) in
+    override func serverTrustPolicyForHost(_ host: String) -> ServerTrustPolicy? {
+        let trustPolicy = ServerTrustPolicy.customEvaluation {(serverTrust, host) in
             let policy = SecPolicyCreateSSL(true,  host as CFString)
             let array = [policy!]
             SecTrustSetPolicies(serverTrust, array)
             
             let certificates = SecurityUtil.rootCertificates()
-            SecTrustSetAnchorCertificates(serverTrust, certificates)
+            SecTrustSetAnchorCertificates(serverTrust, certificates!)
             SecTrustSetAnchorCertificatesOnly(serverTrust, true)
             
             var isValid = false
-            var result = SecTrustResultType.Invalid
+            var result = SecTrustResultType.invalid
             let status = SecTrustEvaluate(serverTrust, &result)
             
             if status == errSecSuccess {
-                let unspecified = SecTrustResultType.Unspecified
-                let proceed = SecTrustResultType.Proceed
+                let unspecified = SecTrustResultType.unspecified
+                let proceed = SecTrustResultType.proceed
                 
                 isValid = result == unspecified || result == proceed
             }
@@ -58,7 +58,7 @@ public class Dropbox {
     public static var authorizedClient : DropboxClient?
 
     /// Sets up access to the API
-    public static func setupWithAppKey(appKey : String) {
+    public static func setupWithAppKey(_ appKey : String) {
         precondition(DropboxAuthManager.sharedAuthManager == nil, "Only call `Dropbox.initAppWithKey` once")
         DropboxAuthManager.sharedAuthManager = DropboxAuthManager(appKey: appKey)
 
@@ -72,7 +72,7 @@ public class Dropbox {
     ///
     /// - parameter controller: The controller to present from
 #if os(iOS)
-    public static func authorizeFromController(controller: UIViewController) {
+    public static func authorizeFromController(_ controller: UIViewController) {
         precondition(DropboxAuthManager.sharedAuthManager != nil, "Call `Dropbox.initAppWithKey` before calling this method")
         precondition(Dropbox.authorizedClient == nil, "Client is already authorized")
         DropboxAuthManager.sharedAuthManager.authorizeFromController(controller)
@@ -82,16 +82,16 @@ public class Dropbox {
 #endif
 
     /// Handle a redirect and automatically initialize the client and save the token.
-    public static func handleRedirectURL(url: NSURL) -> DropboxAuthResult? {
+    public static func handleRedirectURL(_ url: URL) -> DropboxAuthResult? {
         precondition(DropboxAuthManager.sharedAuthManager != nil, "Call `Dropbox.initAppWithKey` before calling this method")
         precondition(Dropbox.authorizedClient == nil, "Client is already authorized")
         if let result =  DropboxAuthManager.sharedAuthManager.handleRedirectURL(url) {
             switch result {
-            case .Success(let token):
+            case .success(let token):
                 Dropbox.authorizedClient = DropboxClient(accessToken: token)
                 DropboxClient.sharedClient = Dropbox.authorizedClient
                 return result
-            case .Error:
+            case .error:
                 return result
             }
         } else {

@@ -14,7 +14,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.Metadata` object on success or a
         `Files.RelocationError` object on failure.
     */
-    public func copy(fromPath fromPath: String, toPath: String) -> BabelRpcRequest<Files.MetadataSerializer, Files.RelocationErrorSerializer> {
+    public func copy(fromPath: String, toPath: String) -> BabelRpcRequest<Files.MetadataSerializer, Files.RelocationErrorSerializer> {
         let request = Files.RelocationArg(fromPath: fromPath, toPath: toPath)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/copy", params: Files.RelocationArgSerializer().serialize(request), responseSerializer: Files.MetadataSerializer(), errorSerializer: Files.RelocationErrorSerializer())
     }
@@ -26,7 +26,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FolderMetadata` object on success or
         a `Files.CreateFolderError` object on failure.
     */
-    public func createFolder(path path: String) -> BabelRpcRequest<Files.FolderMetadataSerializer, Files.CreateFolderErrorSerializer> {
+    public func createFolder(path: String) -> BabelRpcRequest<Files.FolderMetadataSerializer, Files.CreateFolderErrorSerializer> {
         let request = Files.CreateFolderArg(path: path)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/create_folder", params: Files.CreateFolderArgSerializer().serialize(request), responseSerializer: Files.FolderMetadataSerializer(), errorSerializer: Files.CreateFolderErrorSerializer())
     }
@@ -38,7 +38,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.Metadata` object on success or a
         `Files.DeleteError` object on failure.
     */
-    public func delete(path path: String) -> BabelRpcRequest<Files.MetadataSerializer, Files.DeleteErrorSerializer> {
+    public func delete(path: String) -> BabelRpcRequest<Files.MetadataSerializer, Files.DeleteErrorSerializer> {
         let request = Files.DeleteArg(path: path)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/delete", params: Files.DeleteArgSerializer().serialize(request), responseSerializer: Files.MetadataSerializer(), errorSerializer: Files.DeleteErrorSerializer())
     }
@@ -53,7 +53,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.DownloadError` object on failure.
     */
-    public func download(path path: String, rev: String? = nil, destination: (NSURL, NSHTTPURLResponse) -> NSURL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.DownloadErrorSerializer> {
+    public func download(path: String, rev: String? = nil, destination: (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.DownloadErrorSerializer> {
         let request = Files.DownloadArg(path: path, rev: rev)
         return BabelDownloadRequest(client: self.client, host: "content", route: "/files/download", params: Files.DownloadArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.DownloadErrorSerializer(), destination: destination)
     }
@@ -66,7 +66,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.Metadata` object on success or a
         `Files.GetMetadataError` object on failure.
     */
-    public func getMetadata(path path: String, includeMediaInfo: Bool = false) -> BabelRpcRequest<Files.MetadataSerializer, Files.GetMetadataErrorSerializer> {
+    public func getMetadata(path: String, includeMediaInfo: Bool = false) -> BabelRpcRequest<Files.MetadataSerializer, Files.GetMetadataErrorSerializer> {
         let request = Files.GetMetadataArg(path: path, includeMediaInfo: includeMediaInfo)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/get_metadata", params: Files.GetMetadataArgSerializer().serialize(request), responseSerializer: Files.MetadataSerializer(), errorSerializer: Files.GetMetadataErrorSerializer())
     }
@@ -82,7 +82,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.PreviewError` object on failure.
     */
-    public func getPreview(path path: String, rev: String? = nil, destination: (NSURL, NSHTTPURLResponse) -> NSURL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.PreviewErrorSerializer> {
+    public func getPreview(path: String, rev: String? = nil, destination: (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.PreviewErrorSerializer> {
         let request = Files.PreviewArg(path: path, rev: rev)
         return BabelDownloadRequest(client: self.client, host: "content", route: "/files/get_preview", params: Files.PreviewArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.PreviewErrorSerializer(), destination: destination)
     }
@@ -100,7 +100,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.ThumbnailError` object on failure.
     */
-    public func getThumbnail(path path: String, format: Files.ThumbnailFormat = .Jpeg, size: Files.ThumbnailSize = .W64h64, destination: (NSURL, NSHTTPURLResponse) -> NSURL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.ThumbnailErrorSerializer> {
+    public func getThumbnail(path: String, format: Files.ThumbnailFormat = .jpeg, size: Files.ThumbnailSize = .w64h64, destination: (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.ThumbnailErrorSerializer> {
         let request = Files.ThumbnailArg(path: path, format: format, size: size)
         return BabelDownloadRequest(client: self.client, host: "content", route: "/files/get_thumbnail", params: Files.ThumbnailArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.ThumbnailErrorSerializer(), destination: destination)
     }
@@ -117,7 +117,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.ListFolderResult` object on success
         or a `Files.ListFolderError` object on failure.
     */
-    public func listFolder(path path: String, recursive: Bool = false, includeMediaInfo: Bool = false, includeDeleted: Bool = false) -> BabelRpcRequest<Files.ListFolderResultSerializer, Files.ListFolderErrorSerializer> {
+    public func listFolder(path: String, recursive: Bool = false, includeMediaInfo: Bool = false, includeDeleted: Bool = false) -> BabelRpcRequest<Files.ListFolderResultSerializer, Files.ListFolderErrorSerializer> {
         let request = Files.ListFolderArg(path: path, recursive: recursive, includeMediaInfo: includeMediaInfo, includeDeleted: includeDeleted)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/list_folder", params: Files.ListFolderArgSerializer().serialize(request), responseSerializer: Files.ListFolderResultSerializer(), errorSerializer: Files.ListFolderErrorSerializer())
     }
@@ -130,7 +130,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.ListFolderResult` object on success
         or a `Files.ListFolderContinueError` object on failure.
     */
-    public func listFolderContinue(cursor cursor: String) -> BabelRpcRequest<Files.ListFolderResultSerializer, Files.ListFolderContinueErrorSerializer> {
+    public func listFolderContinue(cursor: String) -> BabelRpcRequest<Files.ListFolderResultSerializer, Files.ListFolderContinueErrorSerializer> {
         let request = Files.ListFolderContinueArg(cursor: cursor)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/list_folder/continue", params: Files.ListFolderContinueArgSerializer().serialize(request), responseSerializer: Files.ListFolderResultSerializer(), errorSerializer: Files.ListFolderContinueErrorSerializer())
     }
@@ -149,7 +149,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.ListFolderGetLatestCursorResult`
         object on success or a `Files.ListFolderError` object on failure.
     */
-    public func listFolderGetLatestCursor(path path: String, recursive: Bool = false, includeMediaInfo: Bool = false, includeDeleted: Bool = false) -> BabelRpcRequest<Files.ListFolderGetLatestCursorResultSerializer, Files.ListFolderErrorSerializer> {
+    public func listFolderGetLatestCursor(path: String, recursive: Bool = false, includeMediaInfo: Bool = false, includeDeleted: Bool = false) -> BabelRpcRequest<Files.ListFolderGetLatestCursorResultSerializer, Files.ListFolderErrorSerializer> {
         let request = Files.ListFolderArg(path: path, recursive: recursive, includeMediaInfo: includeMediaInfo, includeDeleted: includeDeleted)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/list_folder/get_latest_cursor", params: Files.ListFolderArgSerializer().serialize(request), responseSerializer: Files.ListFolderGetLatestCursorResultSerializer(), errorSerializer: Files.ListFolderErrorSerializer())
     }
@@ -168,7 +168,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.ListFolderLongpollResult` object on
         success or a `Files.ListFolderLongpollError` object on failure.
     */
-    public func listFolderLongpoll(cursor cursor: String, timeout: UInt64 = 30) -> BabelRpcRequest<Files.ListFolderLongpollResultSerializer, Files.ListFolderLongpollErrorSerializer> {
+    public func listFolderLongpoll(cursor: String, timeout: UInt64 = 30) -> BabelRpcRequest<Files.ListFolderLongpollResultSerializer, Files.ListFolderLongpollErrorSerializer> {
         let request = Files.ListFolderLongpollArg(cursor: cursor, timeout: timeout)
         return BabelRpcRequest(client: self.client, host: "notify", route: "/files/list_folder/longpoll", params: Files.ListFolderLongpollArgSerializer().serialize(request), responseSerializer: Files.ListFolderLongpollResultSerializer(), errorSerializer: Files.ListFolderLongpollErrorSerializer())
     }
@@ -181,7 +181,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.ListRevisionsResult` object on
         success or a `Files.ListRevisionsError` object on failure.
     */
-    public func listRevisions(path path: String, limit: UInt64 = 10) -> BabelRpcRequest<Files.ListRevisionsResultSerializer, Files.ListRevisionsErrorSerializer> {
+    public func listRevisions(path: String, limit: UInt64 = 10) -> BabelRpcRequest<Files.ListRevisionsResultSerializer, Files.ListRevisionsErrorSerializer> {
         let request = Files.ListRevisionsArg(path: path, limit: limit)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/list_revisions", params: Files.ListRevisionsArgSerializer().serialize(request), responseSerializer: Files.ListRevisionsResultSerializer(), errorSerializer: Files.ListRevisionsErrorSerializer())
     }
@@ -195,7 +195,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.Metadata` object on success or a
         `Files.RelocationError` object on failure.
     */
-    public func move(fromPath fromPath: String, toPath: String) -> BabelRpcRequest<Files.MetadataSerializer, Files.RelocationErrorSerializer> {
+    public func move(fromPath: String, toPath: String) -> BabelRpcRequest<Files.MetadataSerializer, Files.RelocationErrorSerializer> {
         let request = Files.RelocationArg(fromPath: fromPath, toPath: toPath)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/move", params: Files.RelocationArgSerializer().serialize(request), responseSerializer: Files.MetadataSerializer(), errorSerializer: Files.RelocationErrorSerializer())
     }
@@ -208,7 +208,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Void` object on success or a
         `Files.DeleteError` object on failure.
     */
-    public func permanentlyDelete(path path: String) -> BabelRpcRequest<VoidSerializer, Files.DeleteErrorSerializer> {
+    public func permanentlyDelete(path: String) -> BabelRpcRequest<VoidSerializer, Files.DeleteErrorSerializer> {
         let request = Files.DeleteArg(path: path)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/permanently_delete", params: Files.DeleteArgSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Files.DeleteErrorSerializer())
     }
@@ -221,7 +221,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.RestoreError` object on failure.
     */
-    public func restore(path path: String, rev: String) -> BabelRpcRequest<Files.FileMetadataSerializer, Files.RestoreErrorSerializer> {
+    public func restore(path: String, rev: String) -> BabelRpcRequest<Files.FileMetadataSerializer, Files.RestoreErrorSerializer> {
         let request = Files.RestoreArg(path: path, rev: rev)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/restore", params: Files.RestoreArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.RestoreErrorSerializer())
     }
@@ -240,7 +240,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.SearchResult` object on success or a
         `Files.SearchError` object on failure.
     */
-    public func search(path path: String, query: String, start: UInt64 = 0, maxResults: UInt64 = 100, mode: Files.SearchMode = .Filename) -> BabelRpcRequest<Files.SearchResultSerializer, Files.SearchErrorSerializer> {
+    public func search(path: String, query: String, start: UInt64 = 0, maxResults: UInt64 = 100, mode: Files.SearchMode = .filename) -> BabelRpcRequest<Files.SearchResultSerializer, Files.SearchErrorSerializer> {
         let request = Files.SearchArg(path: path, query: query, start: start, maxResults: maxResults, mode: mode)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/files/search", params: Files.SearchArgSerializer().serialize(request), responseSerializer: Files.SearchResultSerializer(), errorSerializer: Files.SearchErrorSerializer())
     }
@@ -264,9 +264,9 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.UploadError` object on failure.
     */
-    public func upload(path path: String, mode: Files.WriteMode = .Add, autorename: Bool = false, clientModified: NSDate? = nil, mute: Bool = false, body: NSData) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadErrorSerializer> {
+    public func upload(path: String, mode: Files.WriteMode = .add, autorename: Bool = false, clientModified: Date? = nil, mute: Bool = false, body: Data) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadErrorSerializer> {
         let request = Files.CommitInfo(path: path, mode: mode, autorename: autorename, clientModified: clientModified, mute: mute)
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload", params: Files.CommitInfoSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadErrorSerializer(), body: .Data(body))
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload", params: Files.CommitInfoSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadErrorSerializer(), body: .data(body))
     }
     /**
         Create a new file with the contents provided in the request. Do not use this to upload a file larger than 150
@@ -288,9 +288,9 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.UploadError` object on failure.
     */
-    public func upload(path path: String, mode: Files.WriteMode = .Add, autorename: Bool = false, clientModified: NSDate? = nil, mute: Bool = false, body: NSURL) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadErrorSerializer> {
+    public func upload(path: String, mode: Files.WriteMode = .add, autorename: Bool = false, clientModified: Date? = nil, mute: Bool = false, body: URL) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadErrorSerializer> {
         let request = Files.CommitInfo(path: path, mode: mode, autorename: autorename, clientModified: clientModified, mute: mute)
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload", params: Files.CommitInfoSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadErrorSerializer(), body: .File(body))
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload", params: Files.CommitInfoSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadErrorSerializer(), body: .file(body))
     }
     /**
         Create a new file with the contents provided in the request. Do not use this to upload a file larger than 150
@@ -312,9 +312,9 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.UploadError` object on failure.
     */
-    public func upload(path path: String, mode: Files.WriteMode = .Add, autorename: Bool = false, clientModified: NSDate? = nil, mute: Bool = false, body: NSInputStream) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadErrorSerializer> {
+    public func upload(path: String, mode: Files.WriteMode = .add, autorename: Bool = false, clientModified: Date? = nil, mute: Bool = false, body: InputStream) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadErrorSerializer> {
         let request = Files.CommitInfo(path: path, mode: mode, autorename: autorename, clientModified: clientModified, mute: mute)
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload", params: Files.CommitInfoSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadErrorSerializer(), body: .Stream(body))
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload", params: Files.CommitInfoSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadErrorSerializer(), body: .stream(body))
     }
     /**
         Append more data to an upload session. A single request should not upload more than 150 MB of file contents.
@@ -327,9 +327,9 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Void` object on success or a
         `Files.UploadSessionLookupError` object on failure.
     */
-    public func uploadSessionAppend(sessionId sessionId: String, offset: UInt64, body: NSData) -> BabelUploadRequest<VoidSerializer, Files.UploadSessionLookupErrorSerializer> {
+    public func uploadSessionAppend(sessionId: String, offset: UInt64, body: Data) -> BabelUploadRequest<VoidSerializer, Files.UploadSessionLookupErrorSerializer> {
         let request = Files.UploadSessionCursor(sessionId: sessionId, offset: offset)
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/append", params: Files.UploadSessionCursorSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Files.UploadSessionLookupErrorSerializer(), body: .Data(body))
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/append", params: Files.UploadSessionCursorSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Files.UploadSessionLookupErrorSerializer(), body: .data(body))
     }
     /**
         Append more data to an upload session. A single request should not upload more than 150 MB of file contents.
@@ -342,9 +342,9 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Void` object on success or a
         `Files.UploadSessionLookupError` object on failure.
     */
-    public func uploadSessionAppend(sessionId sessionId: String, offset: UInt64, body: NSURL) -> BabelUploadRequest<VoidSerializer, Files.UploadSessionLookupErrorSerializer> {
+    public func uploadSessionAppend(sessionId: String, offset: UInt64, body: URL) -> BabelUploadRequest<VoidSerializer, Files.UploadSessionLookupErrorSerializer> {
         let request = Files.UploadSessionCursor(sessionId: sessionId, offset: offset)
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/append", params: Files.UploadSessionCursorSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Files.UploadSessionLookupErrorSerializer(), body: .File(body))
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/append", params: Files.UploadSessionCursorSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Files.UploadSessionLookupErrorSerializer(), body: .file(body))
     }
     /**
         Append more data to an upload session. A single request should not upload more than 150 MB of file contents.
@@ -357,9 +357,9 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Void` object on success or a
         `Files.UploadSessionLookupError` object on failure.
     */
-    public func uploadSessionAppend(sessionId sessionId: String, offset: UInt64, body: NSInputStream) -> BabelUploadRequest<VoidSerializer, Files.UploadSessionLookupErrorSerializer> {
+    public func uploadSessionAppend(sessionId: String, offset: UInt64, body: InputStream) -> BabelUploadRequest<VoidSerializer, Files.UploadSessionLookupErrorSerializer> {
         let request = Files.UploadSessionCursor(sessionId: sessionId, offset: offset)
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/append", params: Files.UploadSessionCursorSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Files.UploadSessionLookupErrorSerializer(), body: .Stream(body))
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/append", params: Files.UploadSessionCursorSerializer().serialize(request), responseSerializer: Serialization._VoidSerializer, errorSerializer: Files.UploadSessionLookupErrorSerializer(), body: .stream(body))
     }
     /**
         Finish an upload session and save the uploaded data to the given file path. A single request should not upload
@@ -372,9 +372,9 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.UploadSessionFinishError` object on failure.
     */
-    public func uploadSessionFinish(cursor cursor: Files.UploadSessionCursor, commit: Files.CommitInfo, body: NSData) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadSessionFinishErrorSerializer> {
+    public func uploadSessionFinish(cursor: Files.UploadSessionCursor, commit: Files.CommitInfo, body: Data) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadSessionFinishErrorSerializer> {
         let request = Files.UploadSessionFinishArg(cursor: cursor, commit: commit)
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/finish", params: Files.UploadSessionFinishArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadSessionFinishErrorSerializer(), body: .Data(body))
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/finish", params: Files.UploadSessionFinishArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadSessionFinishErrorSerializer(), body: .data(body))
     }
     /**
         Finish an upload session and save the uploaded data to the given file path. A single request should not upload
@@ -387,9 +387,9 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.UploadSessionFinishError` object on failure.
     */
-    public func uploadSessionFinish(cursor cursor: Files.UploadSessionCursor, commit: Files.CommitInfo, body: NSURL) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadSessionFinishErrorSerializer> {
+    public func uploadSessionFinish(cursor: Files.UploadSessionCursor, commit: Files.CommitInfo, body: URL) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadSessionFinishErrorSerializer> {
         let request = Files.UploadSessionFinishArg(cursor: cursor, commit: commit)
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/finish", params: Files.UploadSessionFinishArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadSessionFinishErrorSerializer(), body: .File(body))
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/finish", params: Files.UploadSessionFinishArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadSessionFinishErrorSerializer(), body: .file(body))
     }
     /**
         Finish an upload session and save the uploaded data to the given file path. A single request should not upload
@@ -402,9 +402,9 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.UploadSessionFinishError` object on failure.
     */
-    public func uploadSessionFinish(cursor cursor: Files.UploadSessionCursor, commit: Files.CommitInfo, body: NSInputStream) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadSessionFinishErrorSerializer> {
+    public func uploadSessionFinish(cursor: Files.UploadSessionCursor, commit: Files.CommitInfo, body: InputStream) -> BabelUploadRequest<Files.FileMetadataSerializer, Files.UploadSessionFinishErrorSerializer> {
         let request = Files.UploadSessionFinishArg(cursor: cursor, commit: commit)
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/finish", params: Files.UploadSessionFinishArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadSessionFinishErrorSerializer(), body: .Stream(body))
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/finish", params: Files.UploadSessionFinishArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.UploadSessionFinishErrorSerializer(), body: .stream(body))
     }
     /**
         Upload sessions allow you to upload a single file using multiple requests. This call starts a new upload session
@@ -416,8 +416,8 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.UploadSessionStartResult` object on
         success or a `Void` object on failure.
     */
-    public func uploadSessionStart(body body: NSData) -> BabelUploadRequest<Files.UploadSessionStartResultSerializer, VoidSerializer> {
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/start", params: Serialization._VoidSerializer.serialize(), responseSerializer: Files.UploadSessionStartResultSerializer(), errorSerializer: Serialization._VoidSerializer, body: .Data(body))
+    public func uploadSessionStart(body: Data) -> BabelUploadRequest<Files.UploadSessionStartResultSerializer, VoidSerializer> {
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/start", params: Serialization._VoidSerializer.serialize(), responseSerializer: Files.UploadSessionStartResultSerializer(), errorSerializer: Serialization._VoidSerializer, body: .data(body))
     }
     /**
         Upload sessions allow you to upload a single file using multiple requests. This call starts a new upload session
@@ -429,8 +429,8 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.UploadSessionStartResult` object on
         success or a `Void` object on failure.
     */
-    public func uploadSessionStart(body body: NSURL) -> BabelUploadRequest<Files.UploadSessionStartResultSerializer, VoidSerializer> {
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/start", params: Serialization._VoidSerializer.serialize(), responseSerializer: Files.UploadSessionStartResultSerializer(), errorSerializer: Serialization._VoidSerializer, body: .File(body))
+    public func uploadSessionStart(body: URL) -> BabelUploadRequest<Files.UploadSessionStartResultSerializer, VoidSerializer> {
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/start", params: Serialization._VoidSerializer.serialize(), responseSerializer: Files.UploadSessionStartResultSerializer(), errorSerializer: Serialization._VoidSerializer, body: .file(body))
     }
     /**
         Upload sessions allow you to upload a single file using multiple requests. This call starts a new upload session
@@ -442,7 +442,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.UploadSessionStartResult` object on
         success or a `Void` object on failure.
     */
-    public func uploadSessionStart(body body: NSInputStream) -> BabelUploadRequest<Files.UploadSessionStartResultSerializer, VoidSerializer> {
-        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/start", params: Serialization._VoidSerializer.serialize(), responseSerializer: Files.UploadSessionStartResultSerializer(), errorSerializer: Serialization._VoidSerializer, body: .Stream(body))
+    public func uploadSessionStart(body: InputStream) -> BabelUploadRequest<Files.UploadSessionStartResultSerializer, VoidSerializer> {
+        return BabelUploadRequest(client: self.client, host: "content", route: "/files/upload_session/start", params: Serialization._VoidSerializer.serialize(), responseSerializer: Files.UploadSessionStartResultSerializer(), errorSerializer: Serialization._VoidSerializer, body: .stream(body))
     }
 }

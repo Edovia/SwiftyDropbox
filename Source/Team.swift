@@ -19,9 +19,9 @@ public class Team {
         /// The number of members in the group.
         public let memberCount : UInt32
         public init(groupName: String, groupId: String, memberCount: UInt32, groupExternalId: String? = nil) {
-            stringValidator()(value: groupName)
+            stringValidator()(groupName)
             self.groupName = groupName
-            stringValidator()(value: groupId)
+            stringValidator()(groupId)
             self.groupId = groupId
             nullableValidator(stringValidator())(value: groupExternalId)
             self.groupExternalId = groupExternalId
@@ -34,22 +34,22 @@ public class Team {
     }
     public class GroupSummarySerializer: JSONSerializer {
         public init() { }
-        public func serialize(value: GroupSummary) -> JSON {
+        public func serialize(_ value: GroupSummary) -> JSON {
             let output = [ 
             "group_name": Serialization._StringSerializer.serialize(value.groupName),
             "group_id": Serialization._StringSerializer.serialize(value.groupId),
             "member_count": Serialization._UInt32Serializer.serialize(value.memberCount),
             "group_external_id": NullableSerializer(Serialization._StringSerializer).serialize(value.groupExternalId),
             ]
-            return .Dictionary(output)
+            return .dictionary(output)
         }
-        public func deserialize(json: JSON) -> GroupSummary {
+        public func deserialize(_ json: JSON) -> GroupSummary {
             switch json {
-                case .Dictionary(let dict):
-                    let groupName = Serialization._StringSerializer.deserialize(dict["group_name"] ?? .Null)
-                    let groupId = Serialization._StringSerializer.deserialize(dict["group_id"] ?? .Null)
-                    let memberCount = Serialization._UInt32Serializer.deserialize(dict["member_count"] ?? .Null)
-                    let groupExternalId = NullableSerializer(Serialization._StringSerializer).deserialize(dict["group_external_id"] ?? .Null)
+                case .dictionary(let dict):
+                    let groupName = Serialization._StringSerializer.deserialize(dict["group_name"] ?? .null)
+                    let groupId = Serialization._StringSerializer.deserialize(dict["group_id"] ?? .null)
+                    let memberCount = Serialization._UInt32Serializer.deserialize(dict["member_count"] ?? .null)
+                    let groupExternalId = NullableSerializer(Serialization._StringSerializer).deserialize(dict["group_external_id"] ?? .null)
                     return GroupSummary(groupName: groupName, groupId: groupId, memberCount: memberCount, groupExternalId: groupExternalId)
                 default:
                     fatalError("Type error deserializing")

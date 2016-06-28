@@ -12,7 +12,7 @@ public class UsersRoutes {
          - returns: Through the response callback, the caller will receive a `Users.BasicAccount` object on success or a
         `Users.GetAccountError` object on failure.
     */
-    public func getAccount(accountId accountId: String) -> BabelRpcRequest<Users.BasicAccountSerializer, Users.GetAccountErrorSerializer> {
+    public func getAccount(accountId: String) -> BabelRpcRequest<Users.BasicAccountSerializer, Users.GetAccountErrorSerializer> {
         let request = Users.GetAccountArg(accountId: accountId)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/users/get_account", params: Users.GetAccountArgSerializer().serialize(request), responseSerializer: Users.BasicAccountSerializer(), errorSerializer: Users.GetAccountErrorSerializer())
     }
@@ -24,7 +24,7 @@ public class UsersRoutes {
          - returns: Through the response callback, the caller will receive a `Array<Users.BasicAccount>` object on
         success or a `Users.GetAccountBatchError` object on failure.
     */
-    public func getAccountBatch(accountIds accountIds: Array<String>) -> BabelRpcRequest<ArraySerializer<Users.BasicAccountSerializer>, Users.GetAccountBatchErrorSerializer> {
+    public func getAccountBatch(accountIds: Array<String>) -> BabelRpcRequest<ArraySerializer<Users.BasicAccountSerializer>, Users.GetAccountBatchErrorSerializer> {
         let request = Users.GetAccountBatchArg(accountIds: accountIds)
         return BabelRpcRequest(client: self.client, host: "meta", route: "/users/get_account_batch", params: Users.GetAccountBatchArgSerializer().serialize(request), responseSerializer: ArraySerializer(Users.BasicAccountSerializer()), errorSerializer: Users.GetAccountBatchErrorSerializer())
     }

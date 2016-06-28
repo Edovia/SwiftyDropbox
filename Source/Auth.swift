@@ -13,50 +13,50 @@ public class Auth {
         /**
             The access token is invalid.
         */
-        case InvalidAccessToken
+        case invalidAccessToken
         /**
             The user specified in 'Dropbox-API-Select-User' is no longer on the team.
         */
-        case InvalidSelectUser
+        case invalidSelectUser
         /**
             An unspecified error.
         */
-        case Other
+        case other
         public var description : String {
             return "\(prepareJSONForSerialization(AuthErrorSerializer().serialize(self)))"
         }
     }
     public class AuthErrorSerializer: JSONSerializer {
         public init() { }
-        public func serialize(value: AuthError) -> JSON {
+        public func serialize(_ value: AuthError) -> JSON {
             switch value {
-                case .InvalidAccessToken:
+                case .invalidAccessToken:
                     var d = [String : JSON]()
-                    d[".tag"] = .Str("invalid_access_token")
-                    return .Dictionary(d)
-                case .InvalidSelectUser:
+                    d[".tag"] = .str("invalid_access_token")
+                    return .dictionary(d)
+                case .invalidSelectUser:
                     var d = [String : JSON]()
-                    d[".tag"] = .Str("invalid_select_user")
-                    return .Dictionary(d)
-                case .Other:
+                    d[".tag"] = .str("invalid_select_user")
+                    return .dictionary(d)
+                case .other:
                     var d = [String : JSON]()
-                    d[".tag"] = .Str("other")
-                    return .Dictionary(d)
+                    d[".tag"] = .str("other")
+                    return .dictionary(d)
             }
         }
-        public func deserialize(json: JSON) -> AuthError {
+        public func deserialize(_ json: JSON) -> AuthError {
             switch json {
-                case .Dictionary(let d):
+                case .dictionary(let d):
                     let tag = Serialization.getTag(d)
                     switch tag {
                         case "invalid_access_token":
-                            return AuthError.InvalidAccessToken
+                            return AuthError.invalidAccessToken
                         case "invalid_select_user":
-                            return AuthError.InvalidSelectUser
+                            return AuthError.invalidSelectUser
                         case "other":
-                            return AuthError.Other
+                            return AuthError.other
                         default:
-                            return AuthError.Other
+                            return AuthError.other
                     }
                 default:
                     fatalError("Failed to deserialize")
