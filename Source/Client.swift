@@ -90,7 +90,7 @@ func asciiEscape(_ s: String) -> String {
 
     for char in s.unicodeScalars {
         var esc = "\(char)"
-        if !char.isASCII() {
+        if !char.isASCII {
             esc = NSString(format:"\\u%04x", char.value) as String
         } else {
             esc = "\(char)"
@@ -175,7 +175,7 @@ public class BabelRpcRequest<RType : JSONSerializer, EType : JSONSerializer> : B
         }
         
         let request = client.manager.request(.POST, url, parameters: ["": ""], headers: headers, encoding: ParameterEncoding.custom {(convertible, _) in
-                let mutableRequest = convertible.URLRequest.copy() as! NSMutableURLRequest
+                var mutableRequest = convertible.urlRequest
                 mutableRequest.httpBody = dumpJSON(params)
                 return (mutableRequest, nil)
             })

@@ -143,7 +143,7 @@ public class Sharing {
             self.sharedFolderId = sharedFolderId
             self.members = members
             self.quiet = quiet
-            nullableValidator(stringValidator(minLength: 1))(value: customMessage)
+            nullableValidator(stringValidator(minLength: 1))(customMessage)
             self.customMessage = customMessage
         }
         public var description : String {
@@ -744,12 +744,12 @@ public class Sharing {
         public init(url: String, name: String, linkPermissions: Sharing.LinkPermissions, id: String? = nil, expires: Date? = nil, pathLower: String? = nil, teamMemberInfo: Sharing.TeamMemberInfo? = nil, contentOwnerTeamInfo: Users.Team? = nil) {
             stringValidator()(url)
             self.url = url
-            nullableValidator(stringValidator(minLength: 1))(value: id)
+            nullableValidator(stringValidator(minLength: 1))(id)
             self.id = id
             stringValidator()(name)
             self.name = name
             self.expires = expires
-            nullableValidator(stringValidator())(value: pathLower)
+            nullableValidator(stringValidator())(pathLower)
             self.pathLower = pathLower
             self.linkPermissions = linkPermissions
             self.teamMemberInfo = teamMemberInfo
@@ -1221,9 +1221,9 @@ public class Sharing {
         public init(url: String, path: String? = nil, linkPassword: String? = nil) {
             stringValidator()(url)
             self.url = url
-            nullableValidator(stringValidator(pattern: "/.*"))(value: path)
+            nullableValidator(stringValidator(pattern: "/.*"))(path)
             self.path = path
-            nullableValidator(stringValidator())(value: linkPassword)
+            nullableValidator(stringValidator())(linkPassword)
             self.linkPassword = linkPassword
         }
         public var description : String {
@@ -1259,7 +1259,7 @@ public class Sharing {
         /// See getSharedLinks description.
         public let path : String?
         public init(path: String? = nil) {
-            nullableValidator(stringValidator())(value: path)
+            nullableValidator(stringValidator())(path)
             self.path = path
         }
         public var description : String {
@@ -1910,7 +1910,7 @@ public class Sharing {
         public let cursor : String?
         public init(entries: Array<Sharing.SharedFolderMetadata>, cursor: String? = nil) {
             self.entries = entries
-            nullableValidator(stringValidator())(value: cursor)
+            nullableValidator(stringValidator())(cursor)
             self.cursor = cursor
         }
         public var description : String {
@@ -1946,9 +1946,9 @@ public class Sharing {
         /// The cursor returned by your last call to listSharedLinks.
         public let cursor : String?
         public init(path: String? = nil, cursor: String? = nil) {
-            nullableValidator(stringValidator(pattern: "((/|id:).*)|(rev:[0-9a-f]{9,})"))(value: path)
+            nullableValidator(stringValidator(pattern: "((/|id:).*)|(rev:[0-9a-f]{9,})"))(path)
             self.path = path
-            nullableValidator(stringValidator())(value: cursor)
+            nullableValidator(stringValidator())(cursor)
             self.cursor = cursor
         }
         public var description : String {
@@ -2042,7 +2042,7 @@ public class Sharing {
         public init(links: Array<Sharing.SharedLinkMetadata>, hasMore: Bool, cursor: String? = nil) {
             self.links = links
             self.hasMore = hasMore
-            nullableValidator(stringValidator())(value: cursor)
+            nullableValidator(stringValidator())(cursor)
             self.cursor = cursor
         }
         public var description : String {
@@ -3540,7 +3540,7 @@ public class Sharing {
             self.users = users
             self.groups = groups
             self.invitees = invitees
-            nullableValidator(stringValidator())(value: cursor)
+            nullableValidator(stringValidator())(cursor)
             self.cursor = cursor
         }
         public var description : String {
@@ -3591,7 +3591,7 @@ public class Sharing {
         /// the MemberActions in the request.
         public let permissions : Array<Sharing.FolderPermission>?
         public init(name: String, sharedFolderId: String, accessType: Sharing.AccessLevel, isTeamFolder: Bool, policy: Sharing.FolderPolicy, pathLower: String? = nil, permissions: Array<Sharing.FolderPermission>? = nil) {
-            nullableValidator(stringValidator())(value: pathLower)
+            nullableValidator(stringValidator())(pathLower)
             self.pathLower = pathLower
             stringValidator()(name)
             self.name = name
@@ -3793,7 +3793,7 @@ public class Sharing {
         public let expires : Date?
         public init(requestedVisibility: Sharing.RequestedVisibility? = nil, linkPassword: String? = nil, expires: Date? = nil) {
             self.requestedVisibility = requestedVisibility
-            nullableValidator(stringValidator())(value: linkPassword)
+            nullableValidator(stringValidator())(linkPassword)
             self.linkPassword = linkPassword
             self.expires = expires
         }
@@ -3889,7 +3889,7 @@ public class Sharing {
             self.teamInfo = teamInfo
             stringValidator()(displayName)
             self.displayName = displayName
-            nullableValidator(stringValidator())(value: memberId)
+            nullableValidator(stringValidator())(memberId)
             self.memberId = memberId
         }
         public var description : String {
@@ -4438,7 +4438,7 @@ public class Sharing {
             stringValidator(minLength: 40, maxLength: 40)(accountId)
             self.accountId = accountId
             self.sameTeam = sameTeam
-            nullableValidator(stringValidator())(value: teamMemberId)
+            nullableValidator(stringValidator())(teamMemberId)
             self.teamMemberId = teamMemberId
         }
         public var description : String {

@@ -165,7 +165,7 @@ public class Users {
             stringValidator()(email)
             self.email = email
             self.emailVerified = emailVerified
-            nullableValidator(stringValidator(minLength: 2, maxLength: 2))(value: country)
+            nullableValidator(stringValidator(minLength: 2, maxLength: 2))(country)
             self.country = country
             stringValidator(minLength: 2)(locale)
             self.locale = locale
@@ -255,7 +255,7 @@ public class Users {
         /// List of user account identifiers.  Should not contain any duplicate account IDs.
         public let accountIds : Array<String>
         public init(accountIds: Array<String>) {
-            arrayValidator(minItems: 1, itemValidator: stringValidator(minLength: 40, maxLength: 40))(value: accountIds)
+            arrayValidator(minItems: 1, itemValidator: stringValidator(minLength: 40, maxLength: 40))(accountIds)
             self.accountIds = accountIds
         }
         public var description : String {

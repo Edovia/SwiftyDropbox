@@ -228,7 +228,7 @@ public class Files {
             self.name = name
             stringValidator()(pathLower)
             self.pathLower = pathLower
-            nullableValidator(stringValidator(pattern: "[-_0-9a-zA-Z:]+"))(value: parentSharedFolderId)
+            nullableValidator(stringValidator(pattern: "[-_0-9a-zA-Z:]+"))(parentSharedFolderId)
             self.parentSharedFolderId = parentSharedFolderId
         }
         public var description : String {
@@ -361,7 +361,7 @@ public class Files {
         public init(path: String, rev: String? = nil) {
             stringValidator(pattern: "((/|id:).*)|(rev:[0-9a-f]{9,})")(path)
             self.path = path
-            nullableValidator(stringValidator(minLength: 9, pattern: "[0-9a-f]+"))(value: rev)
+            nullableValidator(stringValidator(minLength: 9, pattern: "[0-9a-f]+"))(rev)
             self.rev = rev
         }
         public var description : String {
@@ -456,7 +456,7 @@ public class Files {
         /// Set if this file is contained in a shared folder.
         public let sharingInfo : Files.FileSharingInfo?
         public init(name: String, pathLower: String, clientModified: Date, serverModified: Date, rev: String, size: UInt64, parentSharedFolderId: String? = nil, id: String? = nil, mediaInfo: Files.MediaInfo? = nil, sharingInfo: Files.FileSharingInfo? = nil) {
-            nullableValidator(stringValidator(minLength: 1))(value: id)
+            nullableValidator(stringValidator(minLength: 1))(id)
             self.id = id
             self.clientModified = clientModified
             self.serverModified = serverModified
@@ -550,7 +550,7 @@ public class Files {
         public init(readOnly: Bool, parentSharedFolderId: String, modifiedBy: String? = nil) {
             stringValidator(pattern: "[-_0-9a-zA-Z:]+")(parentSharedFolderId)
             self.parentSharedFolderId = parentSharedFolderId
-            nullableValidator(stringValidator(minLength: 40, maxLength: 40))(value: modifiedBy)
+            nullableValidator(stringValidator(minLength: 40, maxLength: 40))(modifiedBy)
             self.modifiedBy = modifiedBy
             super.init(readOnly: readOnly)
         }
@@ -591,9 +591,9 @@ public class Files {
         /// Set if the folder is contained in a shared folder or is a shared folder mount point.
         public let sharingInfo : Files.FolderSharingInfo?
         public init(name: String, pathLower: String, parentSharedFolderId: String? = nil, id: String? = nil, sharedFolderId: String? = nil, sharingInfo: Files.FolderSharingInfo? = nil) {
-            nullableValidator(stringValidator(minLength: 1))(value: id)
+            nullableValidator(stringValidator(minLength: 1))(id)
             self.id = id
-            nullableValidator(stringValidator(pattern: "[-_0-9a-zA-Z:]+"))(value: sharedFolderId)
+            nullableValidator(stringValidator(pattern: "[-_0-9a-zA-Z:]+"))(sharedFolderId)
             self.sharedFolderId = sharedFolderId
             self.sharingInfo = sharingInfo
             super.init(name: name, pathLower: pathLower, parentSharedFolderId: parentSharedFolderId)
@@ -639,9 +639,9 @@ public class Files {
         /// If this folder is a shared folder mount point, the ID of the shared folder mounted at this location.
         public let sharedFolderId : String?
         public init(readOnly: Bool, parentSharedFolderId: String? = nil, sharedFolderId: String? = nil) {
-            nullableValidator(stringValidator(pattern: "[-_0-9a-zA-Z:]+"))(value: parentSharedFolderId)
+            nullableValidator(stringValidator(pattern: "[-_0-9a-zA-Z:]+"))(parentSharedFolderId)
             self.parentSharedFolderId = parentSharedFolderId
-            nullableValidator(stringValidator(pattern: "[-_0-9a-zA-Z:]+"))(value: sharedFolderId)
+            nullableValidator(stringValidator(pattern: "[-_0-9a-zA-Z:]+"))(sharedFolderId)
             self.sharedFolderId = sharedFolderId
             super.init(readOnly: readOnly)
         }
@@ -1084,7 +1084,7 @@ public class Files {
         public let backoff : UInt64?
         public init(changes: Bool, backoff: UInt64? = nil) {
             self.changes = changes
-            nullableValidator(comparableValidator())(value: backoff)
+            nullableValidator(comparableValidator())(backoff)
             self.backoff = backoff
         }
         public var description : String {
@@ -1500,7 +1500,7 @@ public class Files {
         public init(path: String, rev: String? = nil) {
             stringValidator(pattern: "((/|id:).*)|(rev:[0-9a-f]{9,})")(path)
             self.path = path
-            nullableValidator(stringValidator(minLength: 9, pattern: "[0-9a-f]+"))(value: rev)
+            nullableValidator(stringValidator(minLength: 9, pattern: "[0-9a-f]+"))(rev)
             self.rev = rev
         }
         public var description : String {
@@ -2723,7 +2723,7 @@ public class Files {
         /// The duration of the video in milliseconds.
         public let duration : UInt64?
         public init(dimensions: Files.Dimensions? = nil, location: Files.GpsCoordinates? = nil, timeTaken: Date? = nil, duration: UInt64? = nil) {
-            nullableValidator(comparableValidator())(value: duration)
+            nullableValidator(comparableValidator())(duration)
             self.duration = duration
             super.init(dimensions: dimensions, location: location, timeTaken: timeTaken)
         }

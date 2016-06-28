@@ -23,7 +23,7 @@ public class Team {
             self.groupName = groupName
             stringValidator()(groupId)
             self.groupId = groupId
-            nullableValidator(stringValidator(), groupExternalId)
+            nullableValidator(stringValidator())(groupExternalId)
             self.groupExternalId = groupExternalId
             comparableValidator()(memberCount)
             self.memberCount = memberCount

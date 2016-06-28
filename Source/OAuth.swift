@@ -263,7 +263,7 @@ public class DropboxAuthManager {
         components.queryItems = [
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "client_id", value: self.appKey),
-            URLQueryItem(name: "redirect_uri", value: self.redirectURL.URLString),
+            URLQueryItem(name: "redirect_uri", value: self.redirectURL.urlString),
             URLQueryItem(name: "disable_signup", value: "true"),
         ]
         return components.url!
@@ -380,7 +380,7 @@ public class DropboxAuthManager {
         }
         
         if let error = results["error"] {
-            let desc = results["error_description"]?.replacingOccurrences(of: "+", with: " ").stringByRemovingPercentEncoding
+            let desc = results["error_description"]?.replacingOccurrences(of: "+", with: " ").removingPercentEncoding
             return .error(OAuth2Error(errorCode: error), desc ?? "")
         } else {
             let accessToken = results["access_token"]!

@@ -9,19 +9,20 @@ public func setAssertFunc( _ assertFunc: (Bool, String) -> Void) {
 }
 
 
-public func arrayValidator<T>(minItems : Int? = nil, maxItems : Int? = nil, itemValidator: (T) -> Void, _ value : Array<T>) -> Void {
-    if let min = minItems {
-        _assertFunc(value.count >= min, "\(value) must have at least \(min) items")
+public func arrayValidator<T>(minItems : Int? = nil, maxItems : Int? = nil, itemValidator: (T) -> Void) -> (Array<T>) -> Void {
+    return {(value: Array<T>) -> Void in
+        if let min = minItems {
+            _assertFunc(value.count >= min, "\(value) must have at least \(min) items")
+        }
+        
+        if let max = maxItems {
+            _assertFunc(value.count <= max, "\(value) must have at most \(max) items")
+        }
+        
+        for el in value {
+            itemValidator(el)
+        }
     }
-    
-    if let max = maxItems {
-        _assertFunc(value.count <= max, "\(value) must have at most \(max) items")
-    }
-    
-    for el in value {
-        itemValidator(el)
-    }
-    
 }
 
 public func stringValidator(minLength : Int? = nil, maxLength : Int? = nil, pattern: String? = nil) -> (String) -> Void {
@@ -55,9 +56,11 @@ public func comparableValidator<T: Comparable>(minValue : T? = nil, maxValue : T
     }
 }
 
-public func nullableValidator<T>(_ internalValidator : (T) -> Void, _ value : T?) -> Void {
-    if let v = value {
-        internalValidator(v)
+public func nullableValidator<T>(_ internalValidator : (T) -> Void) -> (T?) -> Void {
+    return {(value: T?) -> Void in
+        if let v = value {
+            internalValidator(v)
+        }
     }
 }
 
