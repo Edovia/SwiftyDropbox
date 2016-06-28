@@ -23,9 +23,9 @@ public class Team {
             self.groupName = groupName
             stringValidator()(groupId)
             self.groupId = groupId
-            nullableValidator(stringValidator())(value: groupExternalId)
+            nullableValidator(stringValidator(), groupExternalId)
             self.groupExternalId = groupExternalId
-            comparableValidator()(value: memberCount)
+            comparableValidator()(memberCount)
             self.memberCount = memberCount
         }
         public var description : String {

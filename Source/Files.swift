@@ -321,9 +321,9 @@ public class Files {
         /// Width of the photo/video.
         public let width : UInt64
         public init(height: UInt64, width: UInt64) {
-            comparableValidator()(value: height)
+            comparableValidator()(height)
             self.height = height
-            comparableValidator()(value: width)
+            comparableValidator()(width)
             self.width = width
         }
         public var description : String {
@@ -462,7 +462,7 @@ public class Files {
             self.serverModified = serverModified
             stringValidator(minLength: 9, pattern: "[0-9a-f]+")(rev)
             self.rev = rev
-            comparableValidator()(value: size)
+            comparableValidator()(size)
             self.size = size
             self.mediaInfo = mediaInfo
             self.sharingInfo = sharingInfo
@@ -752,9 +752,9 @@ public class Files {
         /// Longitude of the GPS coordinates.
         public let longitude : Double
         public init(latitude: Double, longitude: Double) {
-            comparableValidator()(value: latitude)
+            comparableValidator()(latitude)
             self.latitude = latitude
-            comparableValidator()(value: longitude)
+            comparableValidator()(longitude)
             self.longitude = longitude
         }
         public var description : String {
@@ -1003,7 +1003,7 @@ public class Files {
         public init(cursor: String, timeout: UInt64 = 30) {
             stringValidator(minLength: 1)(cursor)
             self.cursor = cursor
-            comparableValidator(minValue: 30, maxValue: 480)(value: timeout)
+            comparableValidator(minValue: 30, maxValue: 480)(timeout)
             self.timeout = timeout
         }
         public var description : String {
@@ -1164,7 +1164,7 @@ public class Files {
         public init(path: String, limit: UInt64 = 10) {
             stringValidator(pattern: "/.*")(path)
             self.path = path
-            comparableValidator(minValue: 1, maxValue: 100)(value: limit)
+            comparableValidator(minValue: 1, maxValue: 100)(limit)
             self.limit = limit
         }
         public var description : String {
@@ -1860,9 +1860,9 @@ public class Files {
             self.path = path
             stringValidator()(query)
             self.query = query
-            comparableValidator()(value: start)
+            comparableValidator()(start)
             self.start = start
-            comparableValidator(minValue: 1, maxValue: 1000)(value: maxResults)
+            comparableValidator(minValue: 1, maxValue: 1000)(maxResults)
             self.maxResults = maxResults
             self.mode = mode
         }
@@ -2105,7 +2105,7 @@ public class Files {
         public init(matches: Array<Files.SearchMatch>, more: Bool, start: UInt64) {
             self.matches = matches
             self.more = more
-            comparableValidator()(value: start)
+            comparableValidator()(start)
             self.start = start
         }
         public var description : String {
@@ -2423,7 +2423,7 @@ public class Files {
         public init(sessionId: String, offset: UInt64) {
             stringValidator()(sessionId)
             self.sessionId = sessionId
-            comparableValidator()(value: offset)
+            comparableValidator()(offset)
             self.offset = offset
         }
         public var description : String {
@@ -2622,7 +2622,7 @@ public class Files {
         /// The offset up to which data has been collected.
         public let correctOffset : UInt64
         public init(correctOffset: UInt64) {
-            comparableValidator()(value: correctOffset)
+            comparableValidator()(correctOffset)
             self.correctOffset = correctOffset
         }
         public var description : String {

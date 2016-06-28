@@ -376,7 +376,7 @@ public class Users {
         /// The total space allocated to the user's account (bytes).
         public let allocated : UInt64
         public init(allocated: UInt64) {
-            comparableValidator()(value: allocated)
+            comparableValidator()(allocated)
             self.allocated = allocated
         }
         public var description : String {
@@ -517,7 +517,7 @@ public class Users {
         /// The user's space allocation.
         public let allocation : Users.SpaceAllocation
         public init(used: UInt64, allocation: Users.SpaceAllocation) {
-            comparableValidator()(value: used)
+            comparableValidator()(used)
             self.used = used
             self.allocation = allocation
         }
@@ -592,9 +592,9 @@ public class Users {
         /// The total space allocated to the user's team (bytes).
         public let allocated : UInt64
         public init(used: UInt64, allocated: UInt64) {
-            comparableValidator()(value: used)
+            comparableValidator()(used)
             self.used = used
-            comparableValidator()(value: allocated)
+            comparableValidator()(allocated)
             self.allocated = allocated
         }
         public var description : String {

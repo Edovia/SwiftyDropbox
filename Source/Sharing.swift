@@ -832,7 +832,7 @@ public class Sharing {
             self.serverModified = serverModified
             stringValidator(minLength: 9, pattern: "[0-9a-f]+")(rev)
             self.rev = rev
-            comparableValidator()(value: size)
+            comparableValidator()(size)
             self.size = size
             super.init(url: url, name: name, linkPermissions: linkPermissions, id: id, expires: expires, pathLower: pathLower, teamMemberInfo: teamMemberInfo, contentOwnerTeamInfo: contentOwnerTeamInfo)
         }
@@ -4213,7 +4213,7 @@ public class Sharing {
         /// The new access level for member. owner in AccessLevel is disallowed.
         public let accessLevel : Sharing.AccessLevel
         public init(sharedFolderId: String, member: Sharing.MemberSelector, accessLevel: Sharing.AccessLevel) {
-            stringValidator(pattern: "[-_0-9a-zA-Z:]+")(value: sharedFolderId)
+            stringValidator(pattern: "[-_0-9a-zA-Z:]+")(sharedFolderId)
             self.sharedFolderId = sharedFolderId
             self.member = member
             self.accessLevel = accessLevel
@@ -4318,7 +4318,7 @@ public class Sharing {
         /// The policy to apply to shared links created for content inside this shared folder.
         public let sharedLinkPolicy : Sharing.SharedLinkPolicy?
         public init(sharedFolderId: String, memberPolicy: Sharing.MemberPolicy? = nil, aclUpdatePolicy: Sharing.AclUpdatePolicy? = nil, sharedLinkPolicy: Sharing.SharedLinkPolicy? = nil) {
-            stringValidator(pattern: "[-_0-9a-zA-Z:]+")(value: sharedFolderId)
+            stringValidator(pattern: "[-_0-9a-zA-Z:]+")(sharedFolderId)
             self.sharedFolderId = sharedFolderId
             self.memberPolicy = memberPolicy
             self.aclUpdatePolicy = aclUpdatePolicy
@@ -4435,7 +4435,7 @@ public class Sharing {
         /// The team member ID of the shared folder member. Only present if sameTeam is true.
         public let teamMemberId : String?
         public init(accountId: String, sameTeam: Bool, teamMemberId: String? = nil) {
-            stringValidator(minLength: 40, maxLength: 40)(value: accountId)
+            stringValidator(minLength: 40, maxLength: 40)(accountId)
             self.accountId = accountId
             self.sameTeam = sameTeam
             nullableValidator(stringValidator())(value: teamMemberId)

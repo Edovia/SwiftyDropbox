@@ -43,13 +43,15 @@ public func stringValidator(minLength : Int? = nil, maxLength : Int? = nil, patt
     }
 }
 
-public func comparableValidator<T: Comparable>(minValue : T? = nil, maxValue : T? = nil, _ value: T) -> Void {
-    if let min = minValue {
-        _assertFunc(min <= value, "\(value) must be at least \(min)")
-    }
-    
-    if let max = maxValue {
-        _assertFunc(max >= value, "\(value) must be at most \(max)")
+public func comparableValidator<T: Comparable>(minValue : T? = nil, maxValue : T? = nil) -> (T) -> Void {
+    return {(value: T) -> Void in
+        if let min = minValue {
+            _assertFunc(min <= value, "\(value) must be at least \(min)")
+        }
+        
+        if let max = maxValue {
+            _assertFunc(max >= value, "\(value) must be at most \(max)")
+        }
     }
 }
 
