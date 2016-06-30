@@ -107,7 +107,7 @@ public class Dropbox {
             return
         }
 
-        DropboxAuthManager.sharedAuthManager.clearStoredAccessTokens()
+        _ = DropboxAuthManager.sharedAuthManager.clearStoredAccessTokens()
         Dropbox.authorizedClient = nil
         DropboxClient.sharedClient = nil
     }

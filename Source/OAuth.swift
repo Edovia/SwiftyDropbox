@@ -324,13 +324,13 @@ public class DropboxAuthManager {
             UserDefaults.standard().set(nonce, forKey: kDBLinkNonce)
             UserDefaults.standard().synchronize()
             
-            UIApplication.shared().openURL(dAuthURL(nonce))
+            UIApplication.shared().open(dAuthURL(nonce), options: [:], completionHandler: nil)
         } else {
             let web = DropboxConnectController(
                 URL: self.authURL(),
                 tryIntercept: { url in
                     if self.canHandleURL(url) {
-                        UIApplication.shared().openURL(url)
+                        UIApplication.shared().open(url, options: [:], completionHandler: nil)
                         return true
                     } else {
                         return false
@@ -411,7 +411,7 @@ public class DropboxAuthManager {
         
         switch result {
         case .success(let token):
-            DBKeychain.set(token.uid, value: token.accessToken)
+            _ = DBKeychain.set(token.uid, value: token.accessToken)
             return result
         default:
             return result
@@ -531,7 +531,7 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
         
         self.view.backgroundColor = UIColor.white()
         
-        self.cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: "cancel:")
+        self.cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(DropboxConnectController.cancel(_:)))
         self.navigationItem.rightBarButtonItem = self.cancelButton
     }
     
@@ -572,7 +572,7 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
     }
     
     func showHideBackButton(_ show: Bool) {
-        navigationItem.leftBarButtonItem = show ? UIBarButtonItem(barButtonSystemItem: .rewind, target: self, action: "goBack:") : nil
+        navigationItem.leftBarButtonItem = show ? UIBarButtonItem(barButtonSystemItem: .rewind, target: self, action: #selector(DropboxConnectController.goBack(_:))) : nil
     }
     
     func goBack(_ sender: AnyObject?) {
