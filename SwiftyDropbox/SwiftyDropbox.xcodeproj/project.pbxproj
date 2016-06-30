@@ -27,7 +27,6 @@
 		DA0B076D1D258FC90080CB21 /* SwiftyDropbox.h in Headers */ = {isa = PBXBuildFile; fileRef = DA0B076C1D258FC90080CB21 /* SwiftyDropbox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA0B076E1D25903A0080CB21 /* SecurityUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = DAE5D1301D230A2A00D6B1E3 /* SecurityUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA0B076F1D2590810080CB21 /* SwiftyDropbox.h in Headers */ = {isa = PBXBuildFile; fileRef = DAE3F7CF1D2306DD00826008 /* SwiftyDropbox.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DA0B07721D2591B90080CB21 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA0B075A1D258F750080CB21 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAE5D1251D230A1800D6B1E3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE5D1241D230A1800D6B1E3 /* Alamofire.framework */; };
 		DAE5D1381D230A2A00D6B1E3 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D1261D230A2A00D6B1E3 /* Async.swift */; };
 		DAE5D1391D230A2A00D6B1E3 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D1271D230A2A00D6B1E3 /* Auth.swift */; };
@@ -55,7 +54,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DA0B07721D2591B90080CB21 /* Alamofire.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
