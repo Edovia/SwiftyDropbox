@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA0B07261D2587200080CB21 /* SwitfyDropbox-macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = DA0B07251D2587200080CB21 /* SwitfyDropbox-macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DAE3F7D01D2306DD00826008 /* SwiftyDropbox.h in Headers */ = {isa = PBXBuildFile; fileRef = DAE3F7CF1D2306DD00826008 /* SwiftyDropbox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DAE5D1251D230A1800D6B1E3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE5D1241D230A1800D6B1E3 /* Alamofire.framework */; };
 		DAE5D1381D230A2A00D6B1E3 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D1261D230A2A00D6B1E3 /* Async.swift */; };
@@ -31,9 +30,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DA0B07231D2587200080CB21 /* SwiftyDropbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyDropbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA0B07251D2587200080CB21 /* SwitfyDropbox-macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwitfyDropbox-macOS.h"; sourceTree = "<group>"; };
-		DA0B07271D2587200080CB21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAE3F7CC1D2306DD00826008 /* SwiftyDropbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyDropbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAE3F7CF1D2306DD00826008 /* SwiftyDropbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftyDropbox.h; sourceTree = "<group>"; };
 		DAE3F7D11D2306DD00826008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -60,13 +56,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		DA0B071F1D2587200080CB21 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DAE3F7C81D2306DD00826008 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -78,15 +67,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DA0B07241D2587200080CB21 /* SwitfyDropbox-macOS */ = {
-			isa = PBXGroup;
-			children = (
-				DA0B07251D2587200080CB21 /* SwitfyDropbox-macOS.h */,
-				DA0B07271D2587200080CB21 /* Info.plist */,
-			);
-			path = "SwitfyDropbox-macOS";
-			sourceTree = "<group>";
-		};
 		DAE3F7C21D2306DD00826008 = {
 			isa = PBXGroup;
 			children = (
@@ -109,8 +89,7 @@
 				DAE5D1361D230A2A00D6B1E3 /* Users.swift */,
 				DAE5D1371D230A2A00D6B1E3 /* UsersRoutes.swift */,
 				DAE5D1221D23075900D6B1E3 /* Vendor */,
-				DAE3F7CE1D2306DD00826008 /* SwiftyDropbox-iOS */,
-				DA0B07241D2587200080CB21 /* SwitfyDropbox-macOS */,
+				DAE3F7CE1D2306DD00826008 /* SwiftyDropbox */,
 				DAE3F7CD1D2306DD00826008 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -119,18 +98,16 @@
 			isa = PBXGroup;
 			children = (
 				DAE3F7CC1D2306DD00826008 /* SwiftyDropbox.framework */,
-				DA0B07231D2587200080CB21 /* SwiftyDropbox.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DAE3F7CE1D2306DD00826008 /* SwiftyDropbox-iOS */ = {
+		DAE3F7CE1D2306DD00826008 /* SwiftyDropbox */ = {
 			isa = PBXGroup;
 			children = (
 				DAE3F7CF1D2306DD00826008 /* SwiftyDropbox.h */,
 				DAE3F7D11D2306DD00826008 /* Info.plist */,
 			);
-			name = "SwiftyDropbox-iOS";
 			path = SwiftyDropbox;
 			sourceTree = "<group>";
 		};
@@ -146,14 +123,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		DA0B07201D2587200080CB21 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DA0B07261D2587200080CB21 /* SwitfyDropbox-macOS.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DAE3F7C91D2306DD00826008 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -167,24 +136,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		DA0B07221D2587200080CB21 /* SwitfyDropbox-macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DA0B072A1D2587200080CB21 /* Build configuration list for PBXNativeTarget "SwitfyDropbox-macOS" */;
-			buildPhases = (
-				DA0B071E1D2587200080CB21 /* Sources */,
-				DA0B071F1D2587200080CB21 /* Frameworks */,
-				DA0B07201D2587200080CB21 /* Headers */,
-				DA0B07211D2587200080CB21 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "SwitfyDropbox-macOS";
-			productName = "SwitfyDropbox-macOS";
-			productReference = DA0B07231D2587200080CB21 /* SwiftyDropbox.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		DAE3F7CB1D2306DD00826008 /* SwiftyDropbox */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DAE3F7D41D2306DD00826008 /* Build configuration list for PBXNativeTarget "SwiftyDropbox" */;
@@ -212,12 +163,6 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Edovia Inc.";
 				TargetAttributes = {
-					DA0B07221D2587200080CB21 = {
-						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = F69M46B76S;
-						DevelopmentTeamName = "Edovia Inc.";
-						ProvisioningStyle = Automatic;
-					};
 					DAE3F7CB1D2306DD00826008 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = F69M46B76S;
@@ -240,19 +185,11 @@
 			projectRoot = "";
 			targets = (
 				DAE3F7CB1D2306DD00826008 /* SwiftyDropbox */,
-				DA0B07221D2587200080CB21 /* SwitfyDropbox-macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		DA0B07211D2587200080CB21 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DAE3F7CA1D2306DD00826008 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -263,13 +200,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		DA0B071E1D2587200080CB21 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DAE3F7C71D2306DD00826008 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -296,50 +226,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		DA0B07281D2587200080CB21 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "SwitfyDropbox-macOS/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = com.edovia.SwitfyDropbox;
-				PRODUCT_NAME = SwiftyDropbox;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		DA0B07291D2587200080CB21 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "SwitfyDropbox-macOS/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = com.edovia.SwitfyDropbox;
-				PRODUCT_NAME = SwiftyDropbox;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
 		DAE3F7D21D2306DD00826008 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -485,14 +371,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DA0B072A1D2587200080CB21 /* Build configuration list for PBXNativeTarget "SwitfyDropbox-macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DA0B07281D2587200080CB21 /* Debug */,
-				DA0B07291D2587200080CB21 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
 		DAE3F7C61D2306DD00826008 /* Build configuration list for PBXProject "SwiftyDropbox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
