@@ -83,7 +83,7 @@ class DBKeychain {
     
     class func queryWithDict(_ query: [String : AnyObject]) -> CFDictionary
     {
-        let bundleId = Bundle.main().bundleIdentifier ?? ""
+        let bundleId = Bundle.main.bundleIdentifier ?? ""
         var queryDict = query
         
         queryDict[kSecClass as String]       = kSecClassGenericPassword
@@ -227,7 +227,7 @@ public class DropboxAuthManager {
     private func conformsToAppScheme() -> Bool {
         let appScheme = "db-\(self.appKey)"
         
-        let urlTypes = Bundle.main().objectForInfoDictionaryKey("CFBundleURLTypes") as? [ [String: AnyObject] ] ?? []
+        let urlTypes = Bundle.main.objectForInfoDictionaryKey("CFBundleURLTypes") as? [ [String: AnyObject] ] ?? []
         
         for urlType in urlTypes {
             let schemes = urlType["CFBundleURLSchemes"] as? [String] ?? []
@@ -243,7 +243,7 @@ public class DropboxAuthManager {
     
     private func hasApplicationQueriesScheme() -> Bool {
         
-        let queriesSchemes = Bundle.main().objectForInfoDictionaryKey("LSApplicationQueriesSchemes") as? [String] ?? []
+        let queriesSchemes = Bundle.main.objectForInfoDictionaryKey("LSApplicationQueriesSchemes") as? [String] ?? []
         
         for scheme in queriesSchemes {
             if scheme == "dbapi-2" {
@@ -321,8 +321,8 @@ public class DropboxAuthManager {
         }
         if UIApplication.shared().canOpenURL(dAuthURL(nil)) {
             let nonce = UUID().uuidString
-            UserDefaults.standard().set(nonce, forKey: kDBLinkNonce)
-            UserDefaults.standard().synchronize()
+            UserDefaults.standard.set(nonce, forKey: kDBLinkNonce)
+            UserDefaults.standard.synchronize()
             
             UIApplication.shared().open(dAuthURL(nonce), options: [:], completionHandler: nil)
         } else {
@@ -357,7 +357,7 @@ public class DropboxAuthManager {
             }
             let state = results["state"]?.components(separatedBy: "%3A") ?? []
             
-            let nonce = UserDefaults.standard().object(forKey: kDBLinkNonce) as? String
+            let nonce = UserDefaults.standard.object(forKey: kDBLinkNonce) as? String
             if state.count == 2 && state[0] == "oauth2" && state[1] == nonce! {
                 let accessToken = results["oauth_token_secret"]!
                 let uid = results["uid"]!

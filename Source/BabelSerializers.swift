@@ -326,7 +326,7 @@ public class UInt32Serializer : JSONSerializer {
 
 public class NSDataSerializer : JSONSerializer {
     public func serialize(_ value : Data) -> JSON {
-        return .str(value.base64EncodedString([]))
+        return .str(value.base64EncodedString(options: []))
     }
     
     public func deserialize(_ json: JSON) -> Data {

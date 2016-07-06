@@ -17,7 +17,7 @@ class DropboxServerTrustPolicyManager: ServerTrustPolicyManager {
     override func serverTrustPolicyForHost(_ host: String) -> ServerTrustPolicy? {
         let trustPolicy = ServerTrustPolicy.customEvaluation {(serverTrust, host) in
             let policy = SecPolicyCreateSSL(true,  host as CFString)
-            let array = [policy!]
+            let array = [policy]
             SecTrustSetPolicies(serverTrust, array)
             
             let certificates = SecurityUtil.rootCertificates()
