@@ -550,7 +550,7 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
     public func webView(_ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction,
         decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        if let url = navigationAction.request.url, callback = self.tryIntercept {
+        if let url = navigationAction.request.url, let callback = self.tryIntercept {
             if callback(url: url) {
                 self.dismiss(true)
                 return decisionHandler(.cancel)

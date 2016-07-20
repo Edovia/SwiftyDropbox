@@ -174,11 +174,11 @@ public class BabelRpcRequest<RType : JSONSerializer, EType : JSONSerializer> : B
             headers[header] = val
         }
         
-        let request = client.manager.request(.POST, url, parameters: ["": ""], headers: headers, encoding: ParameterEncoding.custom {(convertible, _) in
-                var mutableRequest = convertible.urlRequest
-                mutableRequest.httpBody = dumpJSON(params)
-                return (mutableRequest, nil)
-            })
+        let request = client.manager.request(.POST, url, parameters: ["": ""], encoding: ParameterEncoding.custom {(convertible, _) in
+            var mutableRequest = convertible.urlRequest
+            mutableRequest.httpBody = dumpJSON(params)
+            return (mutableRequest, nil)
+            }, headers: headers)
         super.init(request: request,
             responseSerializer: responseSerializer,
             errorSerializer: errorSerializer)
