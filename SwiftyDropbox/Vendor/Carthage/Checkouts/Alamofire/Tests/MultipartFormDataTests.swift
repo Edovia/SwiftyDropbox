@@ -60,7 +60,7 @@ struct BoundaryGenerator {
 
 private func temporaryFileURL() -> URL {
     let tempDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
-    let directoryURL = try! tempDirectoryURL.appendingPathComponent("com.alamofire.test/multipart.form.data")
+    let directoryURL = tempDirectoryURL.appendingPathComponent("org.alamofire.test/multipart.form.data")
 
     let fileManager = FileManager.default
     do {
@@ -70,7 +70,7 @@ private func temporaryFileURL() -> URL {
     }
 
     let fileName = UUID().uuidString
-    let fileURL = try! directoryURL.appendingPathComponent(fileName)
+    let fileURL = directoryURL.appendingPathComponent(fileName)
 
     return fileURL
 }
@@ -155,7 +155,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         multipartFormData.appendBodyPart(data: french, name: "french")
         multipartFormData.appendBodyPart(data: japanese, name: "japanese", mimeType: "text/plain")
         multipartFormData.appendBodyPart(data: emoji, name: "emoji", mimeType: "text/plain")
-        
+
         var encodedData: Data?
 
         // When
@@ -212,7 +212,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         if let encodedData = encodedData {
             let boundary = multipartFormData.boundary
 
-            let expectedData = NSMutableData()
+            var expectedData = Data()
             expectedData.append(BoundaryGenerator.boundaryData(boundaryType: .initial, boundaryKey: boundary))
             expectedData.append((
                 "Content-Disposition: form-data; name=\"unicorn\"; filename=\"unicorn.png\"\(CRLF)" +
@@ -251,7 +251,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         if let encodedData = encodedData {
             let boundary = multipartFormData.boundary
 
-            let expectedData = NSMutableData()
+            var expectedData = Data()
             expectedData.append(BoundaryGenerator.boundaryData(boundaryType: .initial, boundaryKey: boundary))
             expectedData.append((
                 "Content-Disposition: form-data; name=\"unicorn\"; filename=\"unicorn.png\"\(CRLF)" +
@@ -303,7 +303,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         if let encodedData = encodedData {
             let boundary = multipartFormData.boundary
 
-            let expectedData = NSMutableData()
+            var expectedData = Data()
             expectedData.append(BoundaryGenerator.boundaryData(boundaryType: .initial, boundaryKey: boundary))
             expectedData.append((
                 "Content-Disposition: form-data; name=\"unicorn\"; filename=\"unicorn.png\"\(CRLF)" +
@@ -359,7 +359,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         if let encodedData = encodedData {
             let boundary = multipartFormData.boundary
 
-            let expectedData = NSMutableData()
+            var expectedData = Data()
             expectedData.append(BoundaryGenerator.boundaryData(boundaryType: .initial, boundaryKey: boundary))
             expectedData.append((
                 "Content-Disposition: form-data; name=\"unicorn\"; filename=\"unicorn.png\"\(CRLF)" +
@@ -417,7 +417,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         if let encodedData = encodedData {
             let boundary = multipartFormData.boundary
 
-            let expectedData = NSMutableData()
+            var expectedData = Data()
             expectedData.append(BoundaryGenerator.boundaryData(boundaryType: .initial, boundaryKey: boundary))
             expectedData.append((
                 "Content-Disposition: form-data; name=\"lorem\"\(CRLF)\(CRLF)"
@@ -556,7 +556,7 @@ class MultipartFormDataWriteEncodedDataToDiskTestCase: BaseTestCase {
         if let fileData = try? Data(contentsOf: fileURL) {
             let boundary = multipartFormData.boundary
 
-            let expectedFileData = NSMutableData()
+            var expectedFileData = Data()
             expectedFileData.append(BoundaryGenerator.boundaryData(boundaryType: .initial, boundaryKey: boundary))
             expectedFileData.append((
                 "Content-Disposition: form-data; name=\"unicorn\"; filename=\"unicorn.png\"\(CRLF)" +
@@ -598,7 +598,7 @@ class MultipartFormDataWriteEncodedDataToDiskTestCase: BaseTestCase {
         if let fileData = try? Data(contentsOf: fileURL) {
             let boundary = multipartFormData.boundary
 
-            let expectedFileData = NSMutableData()
+            var expectedFileData = Data()
             expectedFileData.append(BoundaryGenerator.boundaryData(boundaryType: .initial, boundaryKey: boundary))
             expectedFileData.append((
                 "Content-Disposition: form-data; name=\"unicorn\"; filename=\"unicorn.png\"\(CRLF)" +
@@ -653,7 +653,7 @@ class MultipartFormDataWriteEncodedDataToDiskTestCase: BaseTestCase {
         if let fileData = try? Data(contentsOf: fileURL) {
             let boundary = multipartFormData.boundary
 
-            let expectedFileData = NSMutableData()
+            var expectedFileData = Data()
             expectedFileData.append(BoundaryGenerator.boundaryData(boundaryType: .initial, boundaryKey: boundary))
             expectedFileData.append((
                 "Content-Disposition: form-data; name=\"unicorn\"; filename=\"unicorn.png\"\(CRLF)" +
@@ -713,7 +713,7 @@ class MultipartFormDataWriteEncodedDataToDiskTestCase: BaseTestCase {
         if let fileData = try? Data(contentsOf: fileURL) {
             let boundary = multipartFormData.boundary
 
-            let expectedFileData = NSMutableData()
+            var expectedFileData = Data()
             expectedFileData.append(BoundaryGenerator.boundaryData(boundaryType: .initial, boundaryKey: boundary))
             expectedFileData.append((
                 "Content-Disposition: form-data; name=\"unicorn\"; filename=\"unicorn.png\"\(CRLF)" +
@@ -774,7 +774,7 @@ class MultipartFormDataWriteEncodedDataToDiskTestCase: BaseTestCase {
         if let fileData = try? Data(contentsOf: fileURL) {
             let boundary = multipartFormData.boundary
 
-            let expectedFileData = NSMutableData()
+            var expectedFileData = Data()
             expectedFileData.append(BoundaryGenerator.boundaryData(boundaryType: .initial, boundaryKey: boundary))
             expectedFileData.append((
                 "Content-Disposition: form-data; name=\"lorem\"\(CRLF)\(CRLF)"
@@ -808,8 +808,8 @@ class MultipartFormDataWriteEncodedDataToDiskTestCase: BaseTestCase {
 
 class MultipartFormDataFailureTestCase: BaseTestCase {
     func testThatAppendingFileBodyPartWithInvalidLastPathComponentReturnsError() {
-        // Given 
-        let fileURL = URL(string: "")!
+        // Given
+        let fileURL = NSURL(string: "") as! URL
         let multipartFormData = MultipartFormData()
         multipartFormData.appendBodyPart(fileURL: fileURL, name: "empty_data")
 
@@ -905,7 +905,7 @@ class MultipartFormDataFailureTestCase: BaseTestCase {
         // Given
         let directoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
         let multipartFormData = MultipartFormData()
-        multipartFormData.appendBodyPart(fileURL: directoryURL, name: "empty_data")
+        multipartFormData.appendBodyPart(fileURL: directoryURL, name: "empty_data", fileName: "empty", mimeType: "application/octet")
 
         var encodingError: NSError?
 

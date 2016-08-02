@@ -124,7 +124,7 @@ class CacheTestCase: BaseTestCase {
 
     /**
         Executes a request for all `Cache-Control` header values to load the response into the `URLCache`.
-    
+
         This implementation leverages dispatch groups to execute all the requests as well as wait an additional
         second before returning. This ensures the cache contains responses for all requests that are at least
         one second old. This allows the tests to distinguish whether the subsequent responses come from the cache
@@ -132,7 +132,7 @@ class CacheTestCase: BaseTestCase {
     */
     func primeCachedResponses() {
         let dispatchGroup = DispatchGroup()
-        let serialQueue = DispatchQueue(label: "com.alamofire.cache-tests", attributes: DispatchQueueAttributes.serial)
+        let serialQueue = DispatchQueue(label: "org.alamofire.cache-tests")
 
         for cacheControl in CacheControl.allValues {
             dispatchGroup.enter()
@@ -156,7 +156,7 @@ class CacheTestCase: BaseTestCase {
 
         // Pause for 2 additional seconds to ensure all timestamps will be different
         dispatchGroup.enter()
-        serialQueue.after(when: DispatchTime.now() + Double(Int64(2.0 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
+        serialQueue.asyncAfter(deadline: DispatchTime.now() + Double(Int64(2.0 * Float(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
             dispatchGroup.leave()
         }
 
@@ -238,20 +238,6 @@ class CacheTestCase: BaseTestCase {
         }
     }
 
-    // MARK: - Cache Helper Methods
-
-    private func isCachedResponseForNoStoreHeaderExpected() -> Bool {
-        #if os(iOS)
-            if #available(iOS 8.3, *) {
-                return false
-            } else {
-                return true
-            }
-        #else
-            return false
-        #endif
-    }
-
     // MARK: - Tests
 
     func testURLCacheContainsCachedResponsesForAllRequests() {
@@ -277,12 +263,7 @@ class CacheTestCase: BaseTestCase {
         XCTAssertNotNil(maxAgeNonExpiredResponse, "\(CacheControl.MaxAgeNonExpired) response should not be nil")
         XCTAssertNotNil(maxAgeExpiredResponse, "\(CacheControl.MaxAgeExpired) response should not be nil")
         XCTAssertNotNil(noCacheResponse, "\(CacheControl.NoCache) response should not be nil")
-
-        if isCachedResponseForNoStoreHeaderExpected() {
-            XCTAssertNotNil(noStoreResponse, "\(CacheControl.NoStore) response should not be nil")
-        } else {
-            XCTAssertNil(noStoreResponse, "\(CacheControl.NoStore) response should be nil")
-        }
+        XCTAssertNil(noStoreResponse, "\(CacheControl.NoStore) response should be nil")
     }
 
     func testDefaultCachePolicy() {
@@ -315,12 +296,7 @@ class CacheTestCase: BaseTestCase {
         executeTest(cachePolicy: cachePolicy, cacheControl: CacheControl.MaxAgeNonExpired, shouldReturnCachedResponse: true)
         executeTest(cachePolicy: cachePolicy, cacheControl: CacheControl.MaxAgeExpired, shouldReturnCachedResponse: true)
         executeTest(cachePolicy: cachePolicy, cacheControl: CacheControl.NoCache, shouldReturnCachedResponse: true)
-
-        if isCachedResponseForNoStoreHeaderExpected() {
-            executeTest(cachePolicy: cachePolicy, cacheControl: CacheControl.NoStore, shouldReturnCachedResponse: true)
-        } else {
-            executeTest(cachePolicy: cachePolicy, cacheControl: CacheControl.NoStore, shouldReturnCachedResponse: false)
-        }
+        executeTest(cachePolicy: cachePolicy, cacheControl: CacheControl.NoStore, shouldReturnCachedResponse: false)
     }
 
     func testUseLocalCacheDataAndDontLoadFromNetworkPolicy() {
@@ -332,23 +308,19 @@ class CacheTestCase: BaseTestCase {
         executeTest(cachePolicy: cachePolicy, cacheControl: CacheControl.MaxAgeExpired, shouldReturnCachedResponse: true)
         executeTest(cachePolicy: cachePolicy, cacheControl: CacheControl.NoCache, shouldReturnCachedResponse: true)
 
-        if isCachedResponseForNoStoreHeaderExpected() {
-            executeTest(cachePolicy: cachePolicy, cacheControl: CacheControl.NoStore, shouldReturnCachedResponse: true)
-        } else {
-            // Given
-            let expectation = self.expectation(description: "GET request to httpbin")
-            var response: HTTPURLResponse?
+        // Given
+        let expectation = self.expectation(description: "GET request to httpbin")
+        var response: HTTPURLResponse?
 
-            // When
-            startRequest(cacheControl: CacheControl.NoStore, cachePolicy: cachePolicy) { _, responseResponse in
-                response = responseResponse
-                expectation.fulfill()
-            }
-
-            waitForExpectations(timeout: timeout, handler: nil)
-
-            // Then
-            XCTAssertNil(response, "response should be nil")
+        // When
+        startRequest(cacheControl: CacheControl.NoStore, cachePolicy: cachePolicy) { _, responseResponse in
+            response = responseResponse
+            expectation.fulfill()
         }
+
+        waitForExpectations(timeout: timeout, handler: nil)
+
+        // Then
+        XCTAssertNil(response, "response should be nil")
     }
 }

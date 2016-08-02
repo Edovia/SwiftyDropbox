@@ -227,7 +227,7 @@ public class DropboxAuthManager {
     private func conformsToAppScheme() -> Bool {
         let appScheme = "db-\(self.appKey)"
         
-        let urlTypes = Bundle.main.objectForInfoDictionaryKey("CFBundleURLTypes") as? [ [String: AnyObject] ] ?? []
+        let urlTypes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [ [String: AnyObject] ] ?? []
         
         for urlType in urlTypes {
             let schemes = urlType["CFBundleURLSchemes"] as? [String] ?? []
@@ -243,7 +243,7 @@ public class DropboxAuthManager {
     
     private func hasApplicationQueriesScheme() -> Bool {
         
-        let queriesSchemes = Bundle.main.objectForInfoDictionaryKey("LSApplicationQueriesSchemes") as? [String] ?? []
+        let queriesSchemes = Bundle.main.object(forInfoDictionaryKey: "LSApplicationQueriesSchemes") as? [String] ?? []
         
         for scheme in queriesSchemes {
             if scheme == "dbapi-2" {
@@ -319,18 +319,18 @@ public class DropboxAuthManager {
             controller.present(alertController, animated: true, completion: { fatalError(message) } )
             return
         }
-        if UIApplication.shared().canOpenURL(dAuthURL(nil)) {
+        if UIApplication.shared.canOpenURL(dAuthURL(nil)) {
             let nonce = UUID().uuidString
             UserDefaults.standard.set(nonce, forKey: kDBLinkNonce)
             UserDefaults.standard.synchronize()
             
-            UIApplication.shared().open(dAuthURL(nonce), options: [:], completionHandler: nil)
+            UIApplication.shared.open(dAuthURL(nonce), options: [:], completionHandler: nil)
         } else {
             let web = DropboxConnectController(
                 URL: self.authURL(),
                 tryIntercept: { url in
                     if self.canHandleURL(url) {
-                        UIApplication.shared().open(url, options: [:], completionHandler: nil)
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
                         return true
                     } else {
                         return false
@@ -529,7 +529,7 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
         
         self.webView.navigationDelegate = self
         
-        self.view.backgroundColor = UIColor.white()
+        self.view.backgroundColor = UIColor.white
         
         self.cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(DropboxConnectController.cancel(_:)))
         self.navigationItem.rightBarButtonItem = self.cancelButton
@@ -561,7 +561,7 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
     
     public var startURL: URL? {
         didSet(oldURL) {
-            if nil != startURL && nil == oldURL && isViewLoaded() {
+            if nil != startURL && nil == oldURL && isViewLoaded {
                 loadURL(startURL!)
             }
         }

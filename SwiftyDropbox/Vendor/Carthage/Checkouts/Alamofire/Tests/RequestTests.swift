@@ -123,7 +123,7 @@ class RequestResponseTestCase: BaseTestCase {
         var responseRequest: URLRequest?
         var responseResponse: HTTPURLResponse?
         var responseData: Data?
-        var responseError: ErrorProtocol?
+        var responseError: Error?
 
         // When
         let request = Alamofire.request(.GET, URLString)
@@ -202,7 +202,7 @@ class RequestResponseTestCase: BaseTestCase {
         var responseRequest: URLRequest?
         var responseResponse: HTTPURLResponse?
         var responseData: Data?
-        var responseError: ErrorProtocol?
+        var responseError: Error?
 
         // When
         let request = Alamofire.request(.GET, URLString)
@@ -486,10 +486,10 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
     let managerWithAcceptLanguageHeader: Manager = {
         var headers = Alamofire.Manager.sharedInstance.session.configuration.httpAdditionalHeaders ?? [:]
         headers["Accept-Language"] = "en-US"
-        
+
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = headers
-        
+
         let manager = Manager(configuration: configuration)
         manager.startRequestsImmediately = false
         return manager
@@ -588,16 +588,11 @@ class RequestDebugDescriptionTestCase: BaseTestCase {
         XCTAssertEqual(components[0..<3], ["$", "curl", "-i"], "components should be equal")
         XCTAssertEqual(components[3..<5], ["-X", "POST"], "command should contain explicit -X flag")
 
-        XCTAssertTrue(
-            request.debugDescription.range(of: "-H \"Content-Type: application/json\"") != nil,
-            "command should contain 'application/json' Content-Type"
-        )
-
-        let expectedBody = "-d \"{\\\"f'oo\\\":\\\"ba'r\\\",\\\"foo\\\":\\\"bar\\\",\\\"fo\\\\\\\"o\\\":\\\"b\\\\\\\"ar\\\"}\""        
-        XCTAssertTrue(
-            request.debugDescription.range(of: expectedBody) != nil,
-            "command data should contain JSON encoded parameters"
-        )
+        XCTAssertNotNil(request.debugDescription.range(of: "-H \"Content-Type: application/json\""), "command should contain Content-Type header")
+        XCTAssertNotNil(request.debugDescription.range(of: "-d \"{"), "command should contain body parameter")
+        XCTAssertNotNil(request.debugDescription.range(of: "\\\"f'oo\\\":\\\"ba'r\\\""), "command should contain JSON parameters")
+        XCTAssertNotNil(request.debugDescription.range(of: "\\\"fo\\\\\\\"o\\\":\\\"b\\\\\\\"ar\\\""), "command should contain JSON parameters")
+        XCTAssertNotNil(request.debugDescription.range(of: "\\\"foo\\\":\\\"bar\\"), "command should contain JSON parameters")
 
         XCTAssertEqual(components.last ?? "", "\"\(URLString)\"", "URL component should be equal")
     }

@@ -234,7 +234,7 @@ public class NSDateSerializer : JSONSerializer {
     
     init(_ dateFormat: String) {
         self.dateFormatter = DateFormatter()
-        self.dateFormatter.timeZone = TimeZone(name: "UTC")
+        self.dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         dateFormatter.dateFormat = self.convertFormat(dateFormat)
     }
     public func serialize(_ value: Date) -> JSON {

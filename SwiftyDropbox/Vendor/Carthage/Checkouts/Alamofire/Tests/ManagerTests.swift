@@ -216,7 +216,6 @@ class ManagerConfigurationHeadersTestCase: BaseTestCase {
         executeAuthorizationHeaderTestForConfigurationType(.ephemeral)
     }
 
-
 //    ⚠️ This test has been removed as a result of rdar://26870455 in Xcode 8 Seed 1
 //    func testThatBackgroundConfigurationHeadersAreSentWithRequest() {
 //        // Given, When, Then
@@ -235,8 +234,8 @@ class ManagerConfigurationHeadersTestCase: BaseTestCase {
                 case .ephemeral:
                     configuration = .ephemeral
                 case .background:
-                    let identifier = "com.alamofire.test.manager-configuration-tests"
-                    configuration = .backgroundSessionConfigurationForAllPlatformsWithIdentifier(identifier)
+                    let identifier = "org.alamofire.test.manager-configuration-tests"
+                    configuration = .background(withIdentifier: identifier)
                 }
 
                 var headers = Alamofire.Manager.defaultHTTPHeaders

@@ -26,7 +26,7 @@ public enum CallError<EType> : CustomStringConvertible {
     case rateLimitError
     case httpError(Int?, String?, String?)
     case routeError(Box<EType>, String?)
-    case osError(ErrorProtocol?)
+    case osError(Error?)
     
     public var description : String {
         switch self {
@@ -123,7 +123,7 @@ public class BabelRequest<RType : JSONSerializer, EType : JSONSerializer> {
     
 
     
-    func handleResponseError(_ response: HTTPURLResponse?, data: Data?, error: ErrorProtocol?) -> CallError<EType.ValueType> {
+    func handleResponseError(_ response: HTTPURLResponse?, data: Data?, error: Error?) -> CallError<EType.ValueType> {
         let requestId = response?.allHeaderFields["X-Dropbox-Request-Id"] as? String
         if let code = response?.statusCode {
             switch code {

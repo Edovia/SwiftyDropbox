@@ -189,7 +189,7 @@ class UploadDataTestCase: BaseTestCase {
         var responseRequest: URLRequest?
         var responseResponse: HTTPURLResponse?
         var responseData: Data?
-        var responseError: ErrorProtocol?
+        var responseError: Error?
 
         // When
         let upload = Alamofire.upload(.POST, urlString, data: data)
@@ -584,7 +584,7 @@ class UploadMultipartFormDataTestCase: BaseTestCase {
 //    func testThatUploadingMultipartFormDataOnBackgroundSessionWritesDataToFileToAvoidCrash() {
 //        // Given
 //        let manager: Manager = {
-//            let identifier = "com.alamofire.uploadtests.\(UUID().uuidString)"
+//            let identifier = "org.alamofire.uploadtests.\(UUID().uuidString)"
 //            let configuration = URLSessionConfiguration.backgroundSessionConfigurationForAllPlatformsWithIdentifier(identifier)
 //
 //            return Manager(configuration: configuration, serverTrustPolicyManager: nil)
@@ -628,7 +628,7 @@ class UploadMultipartFormDataTestCase: BaseTestCase {
 //                }
 //            }
 //        )
-//        
+//
 //        waitForExpectations(withTimeout: timeout, handler: nil)
 //
 //        // Then
