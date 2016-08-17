@@ -112,7 +112,7 @@ public class SharingRoutes {
          - returns: Through the response callback, the caller will receive a `Sharing.SharedLinkMetadata` object on
         success or a `Sharing.GetSharedLinkFileError` object on failure.
     */
-    public func getSharedLinkFile(url: String, path: String? = nil, linkPassword: String? = nil, destination: (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Sharing.SharedLinkMetadataSerializer, Sharing.GetSharedLinkFileErrorSerializer> {
+    public func getSharedLinkFile(url: String, path: String? = nil, linkPassword: String? = nil, destination: @escaping (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Sharing.SharedLinkMetadataSerializer, Sharing.GetSharedLinkFileErrorSerializer> {
         let request = Sharing.GetSharedLinkMetadataArg(url: url, path: path, linkPassword: linkPassword)
         return BabelDownloadRequest(client: self.client, host: "content", route: "/sharing/get_shared_link_file", params: Sharing.GetSharedLinkMetadataArgSerializer().serialize(request), responseSerializer: Sharing.SharedLinkMetadataSerializer(), errorSerializer: Sharing.GetSharedLinkFileErrorSerializer(), destination: destination)
     }

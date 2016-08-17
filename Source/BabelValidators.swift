@@ -4,12 +4,12 @@ import Foundation
 
 var _assertFunc: (Bool,String) -> Void = { cond, message in precondition(cond, message) }
 
-public func setAssertFunc( _ assertFunc: (Bool, String) -> Void) {
+public func setAssertFunc( _ assertFunc: @escaping (Bool, String) -> Void) {
     _assertFunc = assertFunc
 }
 
 
-public func arrayValidator<T>(minItems : Int? = nil, maxItems : Int? = nil, itemValidator: (T) -> Void) -> (Array<T>) -> Void {
+public func arrayValidator<T>(minItems : Int? = nil, maxItems : Int? = nil, itemValidator: @escaping (T) -> Void) -> (Array<T>) -> Void {
     return {(value: Array<T>) -> Void in
         if let min = minItems {
             _assertFunc(value.count >= min, "\(value) must have at least \(min) items")
@@ -56,7 +56,7 @@ public func comparableValidator<T: Comparable>(minValue : T? = nil, maxValue : T
     }
 }
 
-public func nullableValidator<T>(_ internalValidator : (T) -> Void) -> (T?) -> Void {
+public func nullableValidator<T>(_ internalValidator : @escaping (T) -> Void) -> (T?) -> Void {
     return {(value: T?) -> Void in
         if let v = value {
             internalValidator(v)

@@ -87,9 +87,9 @@ class DBKeychain {
         var queryDict = query
         
         queryDict[kSecClass as String]       = kSecClassGenericPassword
-        queryDict[kSecAttrService as String] = "\(bundleId).dropbox.authv2"
+        queryDict[kSecAttrService as String] = "\(bundleId).dropbox.authv2" as AnyObject
 
-        return queryDict
+        return queryDict as CFDictionary
     }
 
     class func set(_ key: String, value: String) -> Bool {
@@ -102,8 +102,8 @@ class DBKeychain {
     
     class func set(_ key: String, value: Data) -> Bool {
         let query = DBKeychain.queryWithDict([
-            (kSecAttrAccount as String): key,
-            (  kSecValueData as String): value
+            (kSecAttrAccount as String): key as AnyObject,
+            (  kSecValueData as String): value as AnyObject
         ])
         
         SecItemDelete(query)
@@ -113,13 +113,13 @@ class DBKeychain {
     
     class func getAsData(_ key: String) -> Data? {
         let query = DBKeychain.queryWithDict([
-            (kSecAttrAccount as String): key,
+            (kSecAttrAccount as String): key as AnyObject,
             ( kSecReturnData as String): kCFBooleanTrue,
             ( kSecMatchLimit as String): kSecMatchLimitOne
         ])
         
         var dataResult : AnyObject?
-        let status = withUnsafeMutablePointer(&dataResult) { (ptr) in
+        let status = withUnsafeMutablePointer(to: &dataResult) { (ptr) in
             SecItemCopyMatching(query, UnsafeMutablePointer(ptr))
         }
         
@@ -138,7 +138,7 @@ class DBKeychain {
         ]
         
         var dataResult : AnyObject?
-        let status = withUnsafeMutablePointer(&dataResult) { (ptr) in
+        let status = withUnsafeMutablePointer(to: &dataResult) { (ptr) in
             SecItemCopyMatching(query, UnsafeMutablePointer(ptr))
         }
         
@@ -157,7 +157,7 @@ class DBKeychain {
         ])
         
         var dataResult : AnyObject?
-        let status = withUnsafeMutablePointer(&dataResult) { (ptr) in
+        let status = withUnsafeMutablePointer(to: &dataResult) { (ptr) in
             SecItemCopyMatching(query, UnsafeMutablePointer(ptr))
         }
         
@@ -181,7 +181,7 @@ class DBKeychain {
     
     class func delete(_ key: String) -> Bool {
         let query = DBKeychain.queryWithDict([
-            (kSecAttrAccount as String): key
+            (kSecAttrAccount as String): key as AnyObject
         ])
         
         return SecItemDelete(query) == noErr
@@ -501,8 +501,8 @@ public class DropboxAuthManager {
 public class DropboxConnectController : UIViewController, WKNavigationDelegate {
     var webView : WKWebView!
     
-    var onWillDismiss: ((didCancel: Bool) -> Void)?
-    var tryIntercept: ((url: URL) -> Bool)?
+    var onWillDismiss: ((_ didCancel: Bool) -> Void)?
+    var tryIntercept: ((_ url: URL) -> Bool)?
     
     var cancelButton: UIBarButtonItem?
     
@@ -511,7 +511,7 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
         super.init(nibName: nil, bundle: nil)
     }
     
-    public init(URL: Foundation.URL, tryIntercept: ((url: Foundation.URL) -> Bool)) {
+    public init(URL: Foundation.URL, tryIntercept: ((_ url: Foundation.URL) -> Bool)) {
         super.init(nibName: nil, bundle: nil)
         self.startURL = URL
         self.tryIntercept = tryIntercept
@@ -551,7 +551,7 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
         decidePolicyFor navigationAction: WKNavigationAction,
         decisionHandler: (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url, let callback = self.tryIntercept {
-            if callback(url: url) {
+            if callback(url) {
                 self.dismiss(true)
                 return decisionHandler(.cancel)
             }
@@ -590,7 +590,7 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
     func dismiss(_ asCancel: Bool, animated: Bool) {
         webView.stopLoading()
         
-        self.onWillDismiss?(didCancel: asCancel)
+        self.onWillDismiss?(asCancel)
         presentingViewController?.dismiss(animated: animated, completion: nil)
     }
     

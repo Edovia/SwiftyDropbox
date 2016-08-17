@@ -47,11 +47,11 @@ func prepareJSONForSerialization(_ json: JSON) -> AnyObject {
                 ret[k] = prepareJSONForSerialization(v)
             }
         }
-        return ret
+        return ret as AnyObject
     case .number(let n):
         return n
     case .str(let s):
-        return s
+        return s as AnyObject
     case .null:
         return NSNull()
     }
@@ -72,8 +72,8 @@ func dumpJSON(_ json: JSON) -> Data? {
 }
 
 func parseJSON(_ data: Data) -> JSON {
-    let obj: AnyObject = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
-    return objectToJSON(obj)
+    let obj: Any = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
+    return objectToJSON(obj as AnyObject)
     
 }
 

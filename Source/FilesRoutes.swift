@@ -53,7 +53,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.DownloadError` object on failure.
     */
-    public func download(path: String, rev: String? = nil, destination: (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.DownloadErrorSerializer> {
+    public func download(path: String, rev: String? = nil, destination: @escaping (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.DownloadErrorSerializer> {
         let request = Files.DownloadArg(path: path, rev: rev)
         return BabelDownloadRequest(client: self.client, host: "content", route: "/files/download", params: Files.DownloadArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.DownloadErrorSerializer(), destination: destination)
     }
@@ -82,7 +82,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.PreviewError` object on failure.
     */
-    public func getPreview(path: String, rev: String? = nil, destination: (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.PreviewErrorSerializer> {
+    public func getPreview(path: String, rev: String? = nil, destination: @escaping (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.PreviewErrorSerializer> {
         let request = Files.PreviewArg(path: path, rev: rev)
         return BabelDownloadRequest(client: self.client, host: "content", route: "/files/get_preview", params: Files.PreviewArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.PreviewErrorSerializer(), destination: destination)
     }
@@ -100,7 +100,7 @@ public class FilesRoutes {
          - returns: Through the response callback, the caller will receive a `Files.FileMetadata` object on success or a
         `Files.ThumbnailError` object on failure.
     */
-    public func getThumbnail(path: String, format: Files.ThumbnailFormat = .jpeg, size: Files.ThumbnailSize = .w64h64, destination: (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.ThumbnailErrorSerializer> {
+    public func getThumbnail(path: String, format: Files.ThumbnailFormat = .jpeg, size: Files.ThumbnailSize = .w64h64, destination: @escaping (URL, HTTPURLResponse) -> URL) -> BabelDownloadRequest<Files.FileMetadataSerializer, Files.ThumbnailErrorSerializer> {
         let request = Files.ThumbnailArg(path: path, format: format, size: size)
         return BabelDownloadRequest(client: self.client, host: "content", route: "/files/get_thumbnail", params: Files.ThumbnailArgSerializer().serialize(request), responseSerializer: Files.FileMetadataSerializer(), errorSerializer: Files.ThumbnailErrorSerializer(), destination: destination)
     }

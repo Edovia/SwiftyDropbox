@@ -13,15 +13,15 @@ class DropboxServerTrustPolicyManager: ServerTrustPolicyManager {
     init() {
         super.init(policies: [String : ServerTrustPolicy]())
     }
-        
-    override func serverTrustPolicyForHost(_ host: String) -> ServerTrustPolicy? {
+    
+    override func serverTrustPolicy(forHost host: String) -> Alamofire.ServerTrustPolicy? {
         let trustPolicy = ServerTrustPolicy.customEvaluation {(serverTrust, host) in
             let policy = SecPolicyCreateSSL(true,  host as CFString)
             let array = [policy]
-            SecTrustSetPolicies(serverTrust, array)
+            SecTrustSetPolicies(serverTrust, array as CFTypeRef)
             
             let certificates = SecurityUtil.rootCertificates()
-            SecTrustSetAnchorCertificates(serverTrust, certificates!)
+            SecTrustSetAnchorCertificates(serverTrust, certificates! as CFArray)
             SecTrustSetAnchorCertificatesOnly(serverTrust, true)
             
             var isValid = false

@@ -7,14 +7,14 @@ public class Box<T> {
 }
 
 public class BabelClient {
-    var manager : Manager
+    var manager : SessionManager
     var baseHosts : [String : String]
     
     func additionalHeaders(_ noauth: Bool) -> [String: String] {
         return [:]
     }
     
-    init(manager: Manager, baseHosts : [String : String]) {
+    init(manager: SessionManager, baseHosts : [String : String]) {
         self.manager = manager
         self.baseHosts = baseHosts
     }
@@ -174,11 +174,12 @@ public class BabelRpcRequest<RType : JSONSerializer, EType : JSONSerializer> : B
             headers[header] = val
         }
         
-        let request = client.manager.request(.POST, url, parameters: ["": ""], encoding: ParameterEncoding.custom {(convertible, _) in
+        let request = client.manager.request(url, withMethod: .post, parameters: nil, encoding: .custom({ (convertible, _) -> (URLRequest, NSError?) in
             var mutableRequest = convertible.urlRequest
             mutableRequest.httpBody = dumpJSON(params)
             return (mutableRequest, nil)
-            }, headers: headers)
+        }), headers: headers)
+        
         super.init(request: request,
             responseSerializer: responseSerializer,
             errorSerializer: errorSerializer)
@@ -188,7 +189,7 @@ public class BabelRpcRequest<RType : JSONSerializer, EType : JSONSerializer> : B
     /// Called when a request completes.
     ///
     /// :param: completionHandler A closure which takes a (response, error) and handles the result of the call appropriately.
-    public func response(_ completionHandler: (RType.ValueType?, CallError<EType.ValueType>?) -> Void) -> Self {
+    public func response(_ completionHandler: @escaping (RType.ValueType?, CallError<EType.ValueType>?) -> Void) -> Self {
         self.request.validate().response {
             (request, response, dataObj, error) -> Void in
             let data = dataObj!
@@ -235,11 +236,11 @@ public class BabelUploadRequest<RType : JSONSerializer, EType : JSONSerializer> 
             
             switch body {
             case let .data(data):
-                request = client.manager.upload(.POST, url, headers: headers, data: data)
+                request = client.manager.upload(data, to: url, withMethod: .post, headers: headers)
             case let .file(file):
-                request = client.manager.upload(.POST, url, headers: headers, file: file)
+                request = client.manager.upload(file, to: url, withMethod: .post, headers: headers)
             case let .stream(stream):
-                request = client.manager.upload(.POST, url, headers: headers, stream: stream)
+                request = client.manager.upload(stream, to: url, withMethod: .post, headers: headers)
             }
             super.init(request: request,
                        responseSerializer: responseSerializer,
@@ -254,7 +255,7 @@ public class BabelUploadRequest<RType : JSONSerializer, EType : JSONSerializer> 
     ///         a callback taking three arguments (`bytesWritten`, `totalBytesWritten`, `totalBytesExpectedToWrite`)
     /// :returns: The request, for chaining purposes
     public func progress(_ closure: ((Int64, Int64, Int64) -> Void)? = nil) -> Self {
-        self.request.progress(closure)
+        self.request.progress(closure: closure)
         return self
     }
     
@@ -263,7 +264,7 @@ public class BabelUploadRequest<RType : JSONSerializer, EType : JSONSerializer> 
     /// :param: completionHandler 
     ///         A callback taking two arguments (`response`, `error`) which handles the result of the call appropriately.
     /// :returns: The request, for chaining purposes.
-    public func response(_ completionHandler: (RType.ValueType?, CallError<EType.ValueType>?) -> Void) -> Self {
+    public func response(_ completionHandler: @escaping (RType.ValueType?, CallError<EType.ValueType>?) -> Void) -> Self {
         self.request.validate().response {
             (request, response, dataObj, error) -> Void in
             let data = dataObj!
@@ -280,7 +281,7 @@ public class BabelUploadRequest<RType : JSONSerializer, EType : JSONSerializer> 
 
 public class BabelDownloadRequest<RType : JSONSerializer, EType : JSONSerializer> : BabelRequest<RType, EType> {
     var urlPath : URL?
-    init(client: BabelClient, host: String, route: String, params: JSON, responseSerializer: RType, errorSerializer: EType, destination: (URL, HTTPURLResponse) -> URL) {
+    init(client: BabelClient, host: String, route: String, params: JSON, responseSerializer: RType, errorSerializer: EType, destination: @escaping (URL, HTTPURLResponse) -> URL) {
         let url = "\(client.baseHosts[host]!)\(route)"
         var headers = [String : String]()
         urlPath = nil
@@ -297,13 +298,12 @@ public class BabelDownloadRequest<RType : JSONSerializer, EType : JSONSerializer
         
         weak var _self : BabelDownloadRequest<RType, EType>!
         
-        let dest : (URL, HTTPURLResponse) -> URL = { url, resp in
+        let request = client.manager.download(url, to: { (url, resp) -> URL in
             let ret = destination(url, resp)
             _self.urlPath = ret
             return ret
-        }
-        
-        let request = client.manager.download(.POST, url, headers: headers, destination: dest)
+            },
+                                              withMethod: .post, parameters: nil, encoding: .url, headers: headers)
 
         super.init(request: request, responseSerializer: responseSerializer, errorSerializer: errorSerializer)
         _self = self
@@ -316,7 +316,7 @@ public class BabelDownloadRequest<RType : JSONSerializer, EType : JSONSerializer
     ///         a callback taking three arguments (`bytesRead`, `totalBytesRead`, `totalBytesExpectedToRead`)
     /// :returns: The request, for chaining purposes.
     public func progress(_ closure: ((Int64, Int64, Int64) -> Void)? = nil) -> Self {
-        self.request.progress(closure)
+        self.request.progress(closure: closure)
         return self
     }
     
@@ -325,7 +325,7 @@ public class BabelDownloadRequest<RType : JSONSerializer, EType : JSONSerializer
     /// :param: completionHandler
     ///         A callback taking two arguments (`response`, `error`) which handles the result of the call appropriately.
     /// :returns: The request, for chaining purposes.
-    public func response(_ completionHandler: ( (RType.ValueType, URL)?, CallError<EType.ValueType>?) -> Void) -> Self {
+    public func response(_ completionHandler: @escaping ( (RType.ValueType, URL)?, CallError<EType.ValueType>?) -> Void) -> Self {
         
         self.request.validate()
             .response {

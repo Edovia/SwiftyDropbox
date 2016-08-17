@@ -20,7 +20,7 @@ public class DropboxClient : BabelClient {
 	}
 
 	public convenience init(accessToken: DropboxAccessToken) {
-		let manager = Manager(serverTrustPolicyManager: DropboxServerTrustPolicyManager())
+		let manager = SessionManager(serverTrustPolicyManager: DropboxServerTrustPolicyManager())
         manager.startRequestsImmediately = false
 		self.init(accessToken: accessToken,
 				  manager: manager,
@@ -36,7 +36,7 @@ public class DropboxClient : BabelClient {
     public var sharing : SharingRoutes!
     /// Routes within the users namespace. See UsersRoutes for details.
     public var users : UsersRoutes!
-    public init(accessToken: DropboxAccessToken, manager: Manager, baseHosts: [String : String]) {
+    public init(accessToken: DropboxAccessToken, manager: SessionManager, baseHosts: [String : String]) {
         self.accessToken = accessToken
         super.init(manager: manager, baseHosts: baseHosts)
         self.files = FilesRoutes(client: self)
