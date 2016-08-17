@@ -35,7 +35,7 @@ func objectToJSON(_ json : AnyObject) -> JSON {
 func prepareJSONForSerialization(_ json: JSON) -> AnyObject {
     switch json {
     case .array(let array):
-        return array.map(prepareJSONForSerialization)
+        return array.map(prepareJSONForSerialization) as AnyObject
     case .dictionary(let dict):
         var ret = [String : AnyObject]()
         for (k, v) in dict {

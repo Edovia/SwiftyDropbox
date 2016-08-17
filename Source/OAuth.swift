@@ -131,15 +131,15 @@ class DBKeychain {
     }
     
     class func dbgListAllItems() {
-        let query : CFDictionary = [
+        let query = [
             (kSecClass as String)           : kSecClassGenericPassword,
             (kSecReturnAttributes as String): kCFBooleanTrue,
             (       kSecMatchLimit as String): kSecMatchLimitAll
-        ]
+        ] as [String : Any]
         
         var dataResult : AnyObject?
         let status = withUnsafeMutablePointer(to: &dataResult) { (ptr) in
-            SecItemCopyMatching(query, UnsafeMutablePointer(ptr))
+            SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer(ptr))
         }
         
         if status == noErr {
@@ -346,7 +346,7 @@ public class DropboxAuthManager {
 #endif
     
     private func extractfromDAuthURL(_ url: URL) -> DropboxAuthResult {
-        switch url.path ?? "" {
+        switch url.path {
         case "/connect":
             var results = [String: String]()
             let pairs  = url.query?.components(separatedBy: "&") ?? []
@@ -547,9 +547,7 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
         }
     }
     
-    public func webView(_ webView: WKWebView,
-        decidePolicyFor navigationAction: WKNavigationAction,
-        decisionHandler: (WKNavigationActionPolicy) -> Void) {
+   public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Swift.Void) {
         if let url = navigationAction.request.url, let callback = self.tryIntercept {
             if callback(url) {
                 self.dismiss(true)
@@ -558,6 +556,7 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
         }
         return decisionHandler(.allow)
     }
+    
     
     public var startURL: URL? {
         didSet(oldURL) {
