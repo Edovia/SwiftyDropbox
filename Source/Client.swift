@@ -334,8 +334,12 @@ public class BabelDownloadRequest<RType : JSONSerializer, EType : JSONSerializer
                 let data = self.urlPath.flatMap { (try? Data(contentsOf: $0)) }
                 completionHandler(nil, self.handleResponseError(response, data: data, error: error))
             } else {
-                let result = response!.allHeaderFields["Dropbox-Api-Result"] as! String
-                let resultData = result.data(using: String.Encoding.utf8, allowLossyConversion: false)!
+                var result: String? = response!.allHeaderFields["Dropbox-Api-Result"] as? String
+                
+                if result == nil {
+                    result = response!.allHeaderFields["dropbox-api-result"] as? String
+                }
+                let resultData = result!.data(using: String.Encoding.utf8, allowLossyConversion: false)!
                 let resultObject = self.responseSerializer.deserialize(parseJSON(resultData))
                 
                 completionHandler( (resultObject, self.urlPath!), nil)
