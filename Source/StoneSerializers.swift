@@ -72,7 +72,7 @@ public class SerializeUtil {
         }
     }
 
-    public class func parseJSON(data: NSData) -> JSON {
+    public class func parseJSON(data: Data) -> JSON {
         let obj: Any = try! JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.allowFragments)
         return objectToJSON(json: obj)
     }

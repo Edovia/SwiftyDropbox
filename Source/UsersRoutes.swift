@@ -18,7 +18,7 @@ public class UsersRoutes {
     public func getAccount(accountId: String) -> RpcRequest<Users.BasicAccountSerializer, Users.GetAccountErrorSerializer> {
         let route = Users.getAccount
         let serverArgs = Users.GetAccountArg(accountId: accountId)
-        return client.request(route, serverArgs: serverArgs)
+        return client.request(route: route, serverArgs: serverArgs)
     }
 
     /// Get information about multiple user accounts.  At most 300 accounts may be queried per request.
@@ -30,7 +30,7 @@ public class UsersRoutes {
     public func getAccountBatch(accountIds: Array<String>) -> RpcRequest<ArraySerializer<Users.BasicAccountSerializer>, Users.GetAccountBatchErrorSerializer> {
         let route = Users.getAccountBatch
         let serverArgs = Users.GetAccountBatchArg(accountIds: accountIds)
-        return client.request(route, serverArgs: serverArgs)
+        return client.request(route: route, serverArgs: serverArgs)
     }
 
     /// Get information about the current user's account.
@@ -40,7 +40,7 @@ public class UsersRoutes {
     /// `Void` object on failure.
     public func getCurrentAccount() -> RpcRequest<Users.FullAccountSerializer, VoidSerializer> {
         let route = Users.getCurrentAccount
-        return client.request(route)
+        return client.request(route: route)
     }
 
     /// Get the space usage information for the current user's account.
@@ -50,7 +50,7 @@ public class UsersRoutes {
     /// `Void` object on failure.
     public func getSpaceUsage() -> RpcRequest<Users.SpaceUsageSerializer, VoidSerializer> {
         let route = Users.getSpaceUsage
-        return client.request(route)
+        return client.request(route: route)
     }
 
 }

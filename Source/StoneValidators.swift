@@ -8,7 +8,7 @@ public func setAssertFunc(assertFunc: @escaping (Bool, String) -> Void) {
     _assertFunc = assertFunc
 }
 
-public func arrayValidator<T>(minItems: Int? = nil, maxItems: Int? = nil, itemValidator: @escaping T -> Void) -> (Array<T>) -> Void {
+public func arrayValidator<T>(minItems: Int? = nil, maxItems: Int? = nil, itemValidator: @escaping (T) -> Void) -> (Array<T>) -> Void {
     return { (value: Array<T>) -> Void in
         if let minItems = minItems {
             _assertFunc(value.count >= minItems, "\(value) must have at least \(minItems) items")
@@ -37,7 +37,7 @@ public func stringValidator(minLength: Int? = nil, maxLength: Int? = nil, patter
         if let pat = pattern {
             // patterns much match entire input sequence
             let re = try! NSRegularExpression(pattern: "\\A(?:\(pat))\\z", options: NSRegularExpression.Options())
-            let matches = re.matchesInString(value, options: NSMatchingOptions(), range: NSMakeRange(0, length))
+            let matches = re.matches(in: value, options: NSRegularExpression.MatchingOptions(), range: NSMakeRange(0, length))
             _assertFunc(matches.count > 0, "\"\(value) must match pattern \"\(re.pattern)\"")
         }
     }

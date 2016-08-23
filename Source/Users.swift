@@ -42,7 +42,7 @@ public class Users {
         public func serialize(_ value: Account) -> JSON {
             let output = [ 
             "account_id": Serialization._StringSerializer.serialize(value.accountId),
-            "name": Users.NameSerializer().serialize(value: value.name),
+            "name": Users.NameSerializer().serialize(value.name),
             "email": Serialization._StringSerializer.serialize(value.email),
             "email_verified": Serialization._BoolSerializer.serialize(value.emailVerified),
             "disabled": Serialization._BoolSerializer.serialize(value.disabled),
@@ -54,7 +54,7 @@ public class Users {
             switch json {
                 case .Dictionary(let dict):
                     let accountId = Serialization._StringSerializer.deserialize(dict["account_id"] ?? .Null)
-                    let name = Users.NameSerializer().deserialize(json: dict["name"] ?? .Null)
+                    let name = Users.NameSerializer().deserialize(dict["name"] ?? .Null)
                     let email = Serialization._StringSerializer.deserialize(dict["email"] ?? .Null)
                     let emailVerified = Serialization._BoolSerializer.deserialize(dict["email_verified"] ?? .Null)
                     let disabled = Serialization._BoolSerializer.deserialize(dict["disabled"] ?? .Null)
@@ -143,7 +143,7 @@ public class Users {
         public func serialize(_ value: BasicAccount) -> JSON {
             let output = [ 
             "account_id": Serialization._StringSerializer.serialize(value.accountId),
-            "name": Users.NameSerializer().serialize(value: value.name),
+            "name": Users.NameSerializer().serialize(value.name),
             "email": Serialization._StringSerializer.serialize(value.email),
             "email_verified": Serialization._BoolSerializer.serialize(value.emailVerified),
             "disabled": Serialization._BoolSerializer.serialize(value.disabled),
@@ -157,7 +157,7 @@ public class Users {
             switch json {
                 case .Dictionary(let dict):
                     let accountId = Serialization._StringSerializer.deserialize(dict["account_id"] ?? .Null)
-                    let name = Users.NameSerializer().deserialize(json: dict["name"] ?? .Null)
+                    let name = Users.NameSerializer().deserialize(dict["name"] ?? .Null)
                     let email = Serialization._StringSerializer.deserialize(dict["email"] ?? .Null)
                     let emailVerified = Serialization._BoolSerializer.deserialize(dict["email_verified"] ?? .Null)
                     let disabled = Serialization._BoolSerializer.deserialize(dict["disabled"] ?? .Null)
@@ -215,7 +215,7 @@ public class Users {
         public func serialize(_ value: FullAccount) -> JSON {
             let output = [ 
             "account_id": Serialization._StringSerializer.serialize(value.accountId),
-            "name": Users.NameSerializer().serialize(value: value.name),
+            "name": Users.NameSerializer().serialize(value.name),
             "email": Serialization._StringSerializer.serialize(value.email),
             "email_verified": Serialization._BoolSerializer.serialize(value.emailVerified),
             "disabled": Serialization._BoolSerializer.serialize(value.disabled),
@@ -234,7 +234,7 @@ public class Users {
             switch json {
                 case .Dictionary(let dict):
                     let accountId = Serialization._StringSerializer.deserialize(dict["account_id"] ?? .Null)
-                    let name = Users.NameSerializer().deserialize(json: dict["name"] ?? .Null)
+                    let name = Users.NameSerializer().deserialize(dict["name"] ?? .Null)
                     let email = Serialization._StringSerializer.deserialize(dict["email"] ?? .Null)
                     let emailVerified = Serialization._BoolSerializer.deserialize(dict["email_verified"] ?? .Null)
                     let disabled = Serialization._BoolSerializer.deserialize(dict["disabled"] ?? .Null)
@@ -402,14 +402,14 @@ public class Users {
         case Other
 
         public var description: String {
-            return "\(SerializeUtil.prepareJSONForSerialization(json: GetAccountBatchErrorSerializer().serialize(value: self)))"
+            return "\(SerializeUtil.prepareJSONForSerialization(json: GetAccountBatchErrorSerializer().serialize(self)))"
         }
     }
     public class GetAccountBatchErrorSerializer: JSONSerializer {
         public typealias ValueType = GetAccountBatchError
 
         public init() { }
-        public func serialize(value: GetAccountBatchError) -> JSON {
+        public func serialize(_ value: GetAccountBatchError) -> JSON {
             switch value {
                 case .NoAccount(let arg):
                     var d = ["no_account": Serialization._StringSerializer.serialize(arg)]
@@ -421,10 +421,10 @@ public class Users {
                     return .Dictionary(d)
             }
         }
-        public func deserialize(json: JSON) -> GetAccountBatchError {
+        public func deserialize(_ json: JSON) -> GetAccountBatchError {
             switch json {
                 case .Dictionary(let d):
-                    let tag = Serialization.getTag(d)
+                    let tag = Serialization.getTag(d: d)
                     switch tag {
                         case "no_account":
                             let v = Serialization._StringSerializer.deserialize(d["no_account"] ?? .Null)
@@ -448,12 +448,14 @@ public class Users {
         case Other
 
         public var description: String {
-            return "\(SerializeUtil.prepareJSONForSerialization(GetAccountErrorSerializer().serialize(self)))"
+            return "\(SerializeUtil.prepareJSONForSerialization(json: GetAccountErrorSerializer().serialize(self)))"
         }
     }
     public class GetAccountErrorSerializer: JSONSerializer {
+        public typealias ValueType = GetAccountError
+
         public init() { }
-        public func serialize(value: GetAccountError) -> JSON {
+        public func serialize(_ value: GetAccountError) -> JSON {
             switch value {
                 case .NoAccount:
                     var d = [String: JSON]()
@@ -465,10 +467,10 @@ public class Users {
                     return .Dictionary(d)
             }
         }
-        public func deserialize(json: JSON) -> GetAccountError {
+        public func deserialize(_ json: JSON) -> GetAccountError {
             switch json {
                 case .Dictionary(let d):
-                    let tag = Serialization.getTag(d)
+                    let tag = Serialization.getTag(d: d)
                     switch tag {
                         case "no_account":
                             return GetAccountError.NoAccount
@@ -492,18 +494,19 @@ public class Users {
             self.allocated = allocated
         }
         public var description: String {
-            return "\(SerializeUtil.prepareJSONForSerialization(IndividualSpaceAllocationSerializer().serialize(self)))"
+            return "\(SerializeUtil.prepareJSONForSerialization(json: IndividualSpaceAllocationSerializer().serialize(self)))"
         }
     }
     public class IndividualSpaceAllocationSerializer: JSONSerializer {
+        public typealias ValueType = IndividualSpaceAllocation
         public init() { }
-        public func serialize(value: IndividualSpaceAllocation) -> JSON {
+        public func serialize(_ value: IndividualSpaceAllocation) -> JSON {
             let output = [ 
             "allocated": Serialization._UInt64Serializer.serialize(value.allocated),
             ]
             return .Dictionary(output)
         }
-        public func deserialize(json: JSON) -> IndividualSpaceAllocation {
+        public func deserialize(_ json: JSON) -> IndividualSpaceAllocation {
             switch json {
                 case .Dictionary(let dict):
                     let allocated = Serialization._UInt64Serializer.deserialize(dict["allocated"] ?? .Null)
@@ -536,12 +539,13 @@ public class Users {
             self.displayName = displayName
         }
         public var description: String {
-            return "\(SerializeUtil.prepareJSONForSerialization(NameSerializer().serialize(self)))"
+            return "\(SerializeUtil.prepareJSONForSerialization(json: NameSerializer().serialize(self)))"
         }
     }
     public class NameSerializer: JSONSerializer {
+        public typealias ValueType = Name
         public init() { }
-        public func serialize(value: Name) -> JSON {
+        public func serialize(_ value: Name) -> JSON {
             let output = [ 
             "given_name": Serialization._StringSerializer.serialize(value.givenName),
             "surname": Serialization._StringSerializer.serialize(value.surname),
@@ -550,7 +554,7 @@ public class Users {
             ]
             return .Dictionary(output)
         }
-        public func deserialize(json: JSON) -> Name {
+        public func deserialize(_ json: JSON) -> Name {
             switch json {
                 case .Dictionary(let dict):
                     let givenName = Serialization._StringSerializer.deserialize(dict["given_name"] ?? .Null)
@@ -574,19 +578,20 @@ public class Users {
         case Other
 
         public var description: String {
-            return "\(SerializeUtil.prepareJSONForSerialization(SpaceAllocationSerializer().serialize(self)))"
+            return "\(SerializeUtil.prepareJSONForSerialization(json: SpaceAllocationSerializer().serialize(self)))"
         }
     }
     public class SpaceAllocationSerializer: JSONSerializer {
+        public typealias ValueType = SpaceAllocation
         public init() { }
-        public func serialize(value: SpaceAllocation) -> JSON {
+        public func serialize(_ value: SpaceAllocation) -> JSON {
             switch value {
                 case .Individual(let arg):
-                    var d = Serialization.getFields(Users.IndividualSpaceAllocationSerializer().serialize(arg))
+                    var d = Serialization.getFields(json: Users.IndividualSpaceAllocationSerializer().serialize(arg))
                     d[".tag"] = .Str("individual")
                     return .Dictionary(d)
                 case .Team(let arg):
-                    var d = Serialization.getFields(Users.TeamSpaceAllocationSerializer().serialize(arg))
+                    var d = Serialization.getFields(json: Users.TeamSpaceAllocationSerializer().serialize(arg))
                     d[".tag"] = .Str("team")
                     return .Dictionary(d)
                 case .Other:
@@ -595,10 +600,10 @@ public class Users {
                     return .Dictionary(d)
             }
         }
-        public func deserialize(json: JSON) -> SpaceAllocation {
+        public func deserialize(_ json: JSON) -> SpaceAllocation {
             switch json {
                 case .Dictionary(let d):
-                    let tag = Serialization.getTag(d)
+                    let tag = Serialization.getTag(d: d)
                     switch tag {
                         case "individual":
                             let v = Users.IndividualSpaceAllocationSerializer().deserialize(json)
@@ -629,19 +634,20 @@ public class Users {
             self.allocation = allocation
         }
         public var description: String {
-            return "\(SerializeUtil.prepareJSONForSerialization(SpaceUsageSerializer().serialize(self)))"
+            return "\(SerializeUtil.prepareJSONForSerialization(json: SpaceUsageSerializer().serialize(self)))"
         }
     }
     public class SpaceUsageSerializer: JSONSerializer {
+        public typealias ValueType = SpaceUsage
         public init() { }
-        public func serialize(value: SpaceUsage) -> JSON {
+        public func serialize(_ value: SpaceUsage) -> JSON {
             let output = [ 
             "used": Serialization._UInt64Serializer.serialize(value.used),
             "allocation": Users.SpaceAllocationSerializer().serialize(value.allocation),
             ]
             return .Dictionary(output)
         }
-        public func deserialize(json: JSON) -> SpaceUsage {
+        public func deserialize(_ json: JSON) -> SpaceUsage {
             switch json {
                 case .Dictionary(let dict):
                     let used = Serialization._UInt64Serializer.deserialize(dict["used"] ?? .Null)
@@ -666,19 +672,20 @@ public class Users {
             self.allocated = allocated
         }
         public var description: String {
-            return "\(SerializeUtil.prepareJSONForSerialization(TeamSpaceAllocationSerializer().serialize(self)))"
+            return "\(SerializeUtil.prepareJSONForSerialization(json: TeamSpaceAllocationSerializer().serialize(self)))"
         }
     }
     public class TeamSpaceAllocationSerializer: JSONSerializer {
+        public typealias ValueType = TeamSpaceAllocation
         public init() { }
-        public func serialize(value: TeamSpaceAllocation) -> JSON {
+        public func serialize(_ value: TeamSpaceAllocation) -> JSON {
             let output = [ 
             "used": Serialization._UInt64Serializer.serialize(value.used),
             "allocated": Serialization._UInt64Serializer.serialize(value.allocated),
             ]
             return .Dictionary(output)
         }
-        public func deserialize(json: JSON) -> TeamSpaceAllocation {
+        public func deserialize(_ json: JSON) -> TeamSpaceAllocation {
             switch json {
                 case .Dictionary(let dict):
                     let used = Serialization._UInt64Serializer.deserialize(dict["used"] ?? .Null)
