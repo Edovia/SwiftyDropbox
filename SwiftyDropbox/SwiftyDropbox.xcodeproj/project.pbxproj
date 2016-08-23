@@ -10,9 +10,6 @@
 		DA0B075B1D258F750080CB21 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0B075A1D258F750080CB21 /* Alamofire.framework */; };
 		DA0B075C1D258F910080CB21 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D1261D230A2A00D6B1E3 /* Async.swift */; };
 		DA0B075D1D258F910080CB21 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D1271D230A2A00D6B1E3 /* Auth.swift */; };
-		DA0B075E1D258F910080CB21 /* BabelSerializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D1281D230A2A00D6B1E3 /* BabelSerializers.swift */; };
-		DA0B075F1D258F910080CB21 /* BabelValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D1291D230A2A00D6B1E3 /* BabelValidators.swift */; };
-		DA0B07601D258F910080CB21 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D12A1D230A2A00D6B1E3 /* Client.swift */; };
 		DA0B07611D258F910080CB21 /* DropboxClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D12B1D230A2A00D6B1E3 /* DropboxClient.swift */; };
 		DA0B07621D258F910080CB21 /* DropboxUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D12C1D230A2A00D6B1E3 /* DropboxUtil.swift */; };
 		DA0B07631D258F910080CB21 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D12D1D230A2A00D6B1E3 /* Files.swift */; };
@@ -27,12 +24,22 @@
 		DA0B076D1D258FC90080CB21 /* SwiftyDropbox.h in Headers */ = {isa = PBXBuildFile; fileRef = DA0B076C1D258FC90080CB21 /* SwiftyDropbox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA0B076E1D25903A0080CB21 /* SecurityUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = DAE5D1301D230A2A00D6B1E3 /* SecurityUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA0B076F1D2590810080CB21 /* SwiftyDropbox.h in Headers */ = {isa = PBXBuildFile; fileRef = DAE3F7CF1D2306DD00826008 /* SwiftyDropbox.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA35B0DC1D6BC64500D24D90 /* AuthRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0CF1D6BC64500D24D90 /* AuthRoutes.swift */; };
+		DA35B0DD1D6BC64500D24D90 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0D01D6BC64500D24D90 /* Base.swift */; };
+		DA35B0DE1D6BC64500D24D90 /* BaseTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0D11D6BC64500D24D90 /* BaseTeam.swift */; };
+		DA35B0DF1D6BC64500D24D90 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0D21D6BC64500D24D90 /* Common.swift */; };
+		DA35B0E01D6BC64500D24D90 /* DropboxTeamClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0D31D6BC64500D24D90 /* DropboxTeamClient.swift */; };
+		DA35B0E11D6BC64500D24D90 /* DropboxTransportClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0D41D6BC64500D24D90 /* DropboxTransportClient.swift */; };
+		DA35B0E21D6BC64500D24D90 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0D51D6BC64500D24D90 /* Properties.swift */; };
+		DA35B0E31D6BC64500D24D90 /* StoneBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0D61D6BC64500D24D90 /* StoneBase.swift */; };
+		DA35B0E41D6BC64500D24D90 /* StoneSerializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0D71D6BC64500D24D90 /* StoneSerializers.swift */; };
+		DA35B0E51D6BC64500D24D90 /* StoneValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0D81D6BC64500D24D90 /* StoneValidators.swift */; };
+		DA35B0E61D6BC64500D24D90 /* TeamCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0D91D6BC64500D24D90 /* TeamCommon.swift */; };
+		DA35B0E71D6BC64500D24D90 /* TeamPolicies.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0DA1D6BC64500D24D90 /* TeamPolicies.swift */; };
+		DA35B0E81D6BC64500D24D90 /* TeamRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA35B0DB1D6BC64500D24D90 /* TeamRoutes.swift */; };
 		DAE5D1251D230A1800D6B1E3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE5D1241D230A1800D6B1E3 /* Alamofire.framework */; };
 		DAE5D1381D230A2A00D6B1E3 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D1261D230A2A00D6B1E3 /* Async.swift */; };
 		DAE5D1391D230A2A00D6B1E3 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D1271D230A2A00D6B1E3 /* Auth.swift */; };
-		DAE5D13A1D230A2A00D6B1E3 /* BabelSerializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D1281D230A2A00D6B1E3 /* BabelSerializers.swift */; };
-		DAE5D13B1D230A2A00D6B1E3 /* BabelValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D1291D230A2A00D6B1E3 /* BabelValidators.swift */; };
-		DAE5D13C1D230A2A00D6B1E3 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D12A1D230A2A00D6B1E3 /* Client.swift */; };
 		DAE5D13D1D230A2A00D6B1E3 /* DropboxClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D12B1D230A2A00D6B1E3 /* DropboxClient.swift */; };
 		DAE5D13E1D230A2A00D6B1E3 /* DropboxUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D12C1D230A2A00D6B1E3 /* DropboxUtil.swift */; };
 		DAE5D13F1D230A2A00D6B1E3 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE5D12D1D230A2A00D6B1E3 /* Files.swift */; };
@@ -64,6 +71,19 @@
 		DA0B07531D258F2E0080CB21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA0B075A1D258F750080CB21 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Vendor/Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 		DA0B076C1D258FC90080CB21 /* SwiftyDropbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftyDropbox.h; sourceTree = "<group>"; };
+		DA35B0CF1D6BC64500D24D90 /* AuthRoutes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthRoutes.swift; path = ../Source/AuthRoutes.swift; sourceTree = "<group>"; };
+		DA35B0D01D6BC64500D24D90 /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base.swift; path = ../Source/Base.swift; sourceTree = "<group>"; };
+		DA35B0D11D6BC64500D24D90 /* BaseTeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTeam.swift; path = ../Source/BaseTeam.swift; sourceTree = "<group>"; };
+		DA35B0D21D6BC64500D24D90 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common.swift; path = ../Source/Common.swift; sourceTree = "<group>"; };
+		DA35B0D31D6BC64500D24D90 /* DropboxTeamClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxTeamClient.swift; path = ../Source/DropboxTeamClient.swift; sourceTree = "<group>"; };
+		DA35B0D41D6BC64500D24D90 /* DropboxTransportClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxTransportClient.swift; path = ../Source/DropboxTransportClient.swift; sourceTree = "<group>"; };
+		DA35B0D51D6BC64500D24D90 /* Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Properties.swift; path = ../Source/Properties.swift; sourceTree = "<group>"; };
+		DA35B0D61D6BC64500D24D90 /* StoneBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoneBase.swift; path = ../Source/StoneBase.swift; sourceTree = "<group>"; };
+		DA35B0D71D6BC64500D24D90 /* StoneSerializers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoneSerializers.swift; path = ../Source/StoneSerializers.swift; sourceTree = "<group>"; };
+		DA35B0D81D6BC64500D24D90 /* StoneValidators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoneValidators.swift; path = ../Source/StoneValidators.swift; sourceTree = "<group>"; };
+		DA35B0D91D6BC64500D24D90 /* TeamCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TeamCommon.swift; path = ../Source/TeamCommon.swift; sourceTree = "<group>"; };
+		DA35B0DA1D6BC64500D24D90 /* TeamPolicies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TeamPolicies.swift; path = ../Source/TeamPolicies.swift; sourceTree = "<group>"; };
+		DA35B0DB1D6BC64500D24D90 /* TeamRoutes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TeamRoutes.swift; path = ../Source/TeamRoutes.swift; sourceTree = "<group>"; };
 		DAE3F7CC1D2306DD00826008 /* SwiftyDropbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyDropbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAE3F7CF1D2306DD00826008 /* SwiftyDropbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftyDropbox.h; sourceTree = "<group>"; };
 		DAE3F7D11D2306DD00826008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,9 +91,6 @@
 		DAE5D1241D230A1800D6B1E3 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Vendor/Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		DAE5D1261D230A2A00D6B1E3 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Async.swift; path = ../Source/Async.swift; sourceTree = "<group>"; };
 		DAE5D1271D230A2A00D6B1E3 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Auth.swift; path = ../Source/Auth.swift; sourceTree = "<group>"; };
-		DAE5D1281D230A2A00D6B1E3 /* BabelSerializers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BabelSerializers.swift; path = ../Source/BabelSerializers.swift; sourceTree = "<group>"; };
-		DAE5D1291D230A2A00D6B1E3 /* BabelValidators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BabelValidators.swift; path = ../Source/BabelValidators.swift; sourceTree = "<group>"; };
-		DAE5D12A1D230A2A00D6B1E3 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Client.swift; path = ../Source/Client.swift; sourceTree = "<group>"; };
 		DAE5D12B1D230A2A00D6B1E3 /* DropboxClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxClient.swift; path = ../Source/DropboxClient.swift; sourceTree = "<group>"; };
 		DAE5D12C1D230A2A00D6B1E3 /* DropboxUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxUtil.swift; path = ../Source/DropboxUtil.swift; sourceTree = "<group>"; };
 		DAE5D12D1D230A2A00D6B1E3 /* Files.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Files.swift; path = ../Source/Files.swift; sourceTree = "<group>"; };
@@ -144,11 +161,21 @@
 		DA0B07701D25917C0080CB21 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				DA35B0CF1D6BC64500D24D90 /* AuthRoutes.swift */,
+				DA35B0D01D6BC64500D24D90 /* Base.swift */,
+				DA35B0D11D6BC64500D24D90 /* BaseTeam.swift */,
+				DA35B0D21D6BC64500D24D90 /* Common.swift */,
+				DA35B0D31D6BC64500D24D90 /* DropboxTeamClient.swift */,
+				DA35B0D41D6BC64500D24D90 /* DropboxTransportClient.swift */,
+				DA35B0D51D6BC64500D24D90 /* Properties.swift */,
+				DA35B0D61D6BC64500D24D90 /* StoneBase.swift */,
+				DA35B0D71D6BC64500D24D90 /* StoneSerializers.swift */,
+				DA35B0D81D6BC64500D24D90 /* StoneValidators.swift */,
+				DA35B0D91D6BC64500D24D90 /* TeamCommon.swift */,
+				DA35B0DA1D6BC64500D24D90 /* TeamPolicies.swift */,
+				DA35B0DB1D6BC64500D24D90 /* TeamRoutes.swift */,
 				DAE5D1261D230A2A00D6B1E3 /* Async.swift */,
 				DAE5D1271D230A2A00D6B1E3 /* Auth.swift */,
-				DAE5D1281D230A2A00D6B1E3 /* BabelSerializers.swift */,
-				DAE5D1291D230A2A00D6B1E3 /* BabelValidators.swift */,
-				DAE5D12A1D230A2A00D6B1E3 /* Client.swift */,
 				DAE5D12B1D230A2A00D6B1E3 /* DropboxClient.swift */,
 				DAE5D12C1D230A2A00D6B1E3 /* DropboxUtil.swift */,
 				DAE5D12D1D230A2A00D6B1E3 /* Files.swift */,
@@ -334,7 +361,6 @@
 			files = (
 				DA0B076B1D258F9A0080CB21 /* UsersRoutes.swift in Sources */,
 				DA0B07661D258F960080CB21 /* SecurityUtil.m in Sources */,
-				DA0B075E1D258F910080CB21 /* BabelSerializers.swift in Sources */,
 				DA0B07691D258F9A0080CB21 /* Team.swift in Sources */,
 				DA0B07641D258F910080CB21 /* FilesRoutes.swift in Sources */,
 				DA0B07631D258F910080CB21 /* Files.swift in Sources */,
@@ -345,8 +371,6 @@
 				DA0B07611D258F910080CB21 /* DropboxClient.swift in Sources */,
 				DA0B07621D258F910080CB21 /* DropboxUtil.swift in Sources */,
 				DA0B07681D258F960080CB21 /* SharingRoutes.swift in Sources */,
-				DA0B07601D258F910080CB21 /* Client.swift in Sources */,
-				DA0B075F1D258F910080CB21 /* BabelValidators.swift in Sources */,
 				DA0B07651D258F910080CB21 /* OAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,21 +379,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA35B0E51D6BC64500D24D90 /* StoneValidators.swift in Sources */,
+				DA35B0E71D6BC64500D24D90 /* TeamPolicies.swift in Sources */,
+				DA35B0DF1D6BC64500D24D90 /* Common.swift in Sources */,
+				DA35B0E31D6BC64500D24D90 /* StoneBase.swift in Sources */,
+				DA35B0E61D6BC64500D24D90 /* TeamCommon.swift in Sources */,
 				DAE5D1491D230A2A00D6B1E3 /* UsersRoutes.swift in Sources */,
 				DAE5D1431D230A2A00D6B1E3 /* SecurityUtil.m in Sources */,
-				DAE5D13A1D230A2A00D6B1E3 /* BabelSerializers.swift in Sources */,
 				DAE5D1471D230A2A00D6B1E3 /* Team.swift in Sources */,
+				DA35B0E11D6BC64500D24D90 /* DropboxTransportClient.swift in Sources */,
 				DAE5D1401D230A2A00D6B1E3 /* FilesRoutes.swift in Sources */,
 				DAE5D13F1D230A2A00D6B1E3 /* Files.swift in Sources */,
 				DAE5D1441D230A2A00D6B1E3 /* Sharing.swift in Sources */,
+				DA35B0E21D6BC64500D24D90 /* Properties.swift in Sources */,
 				DAE5D1381D230A2A00D6B1E3 /* Async.swift in Sources */,
+				DA35B0E41D6BC64500D24D90 /* StoneSerializers.swift in Sources */,
 				DAE5D1481D230A2A00D6B1E3 /* Users.swift in Sources */,
 				DAE5D1391D230A2A00D6B1E3 /* Auth.swift in Sources */,
+				DA35B0E01D6BC64500D24D90 /* DropboxTeamClient.swift in Sources */,
 				DAE5D13D1D230A2A00D6B1E3 /* DropboxClient.swift in Sources */,
 				DAE5D13E1D230A2A00D6B1E3 /* DropboxUtil.swift in Sources */,
+				DA35B0E81D6BC64500D24D90 /* TeamRoutes.swift in Sources */,
+				DA35B0DE1D6BC64500D24D90 /* BaseTeam.swift in Sources */,
+				DA35B0DC1D6BC64500D24D90 /* AuthRoutes.swift in Sources */,
+				DA35B0DD1D6BC64500D24D90 /* Base.swift in Sources */,
 				DAE5D1451D230A2A00D6B1E3 /* SharingRoutes.swift in Sources */,
-				DAE5D13C1D230A2A00D6B1E3 /* Client.swift in Sources */,
-				DAE5D13B1D230A2A00D6B1E3 /* BabelValidators.swift in Sources */,
 				DAE5D1411D230A2A00D6B1E3 /* OAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
