@@ -511,7 +511,7 @@ public class DropboxConnectController : UIViewController, WKNavigationDelegate {
         super.init(nibName: nil, bundle: nil)
     }
     
-    public init(URL: Foundation.URL, tryIntercept: ((_ url: Foundation.URL) -> Bool)) {
+    public init(URL: Foundation.URL, tryIntercept: @escaping ((_ url: Foundation.URL) -> Bool)) {
         super.init(nibName: nil, bundle: nil)
         self.startURL = URL
         self.tryIntercept = tryIntercept
